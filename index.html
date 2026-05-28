@@ -1,0 +1,4903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Great Works Studio — The Pantheon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700;1,900&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─────────────────────────────────────────────────────────────────
+       Palette — switched via [data-palette] on <html>
+       ───────────────────────────────────────────────────────────────── */
+
+    :root,
+    html[data-palette="cream"] {
+      --d-pad: 1;
+      --d-gap: 1;
+      --d-text: 1;
+
+      --ink:      #1A1410;
+      --ink-soft: #4A3C30;
+      --paper:    #F5EFE0;
+      --paper-2:  #EDE5D0;
+      --paper-3:  #E2D7BD;
+      --muted:    #7A6A58;
+      --rule:     rgba(26,20,16,0.18);
+      --rule-soft:rgba(26,20,16,0.10);
+
+      --red:    #C8362A;
+      --blue:   #1B6FBF;
+      --gold:   #B98718;
+      --green:  #2A7A3B;
+      --purple: #5C2D8C;
+      --indigo: #2C3F8A;
+      --bronze: #8E5A2A;
+
+      --accent:   var(--gold);
+    }
+
+    html[data-palette="newsprint"] {
+      --ink:      #15110D;
+      --ink-soft: #3a312a;
+      --paper:    #EAE6DC;
+      --paper-2:  #DED9CB;
+      --paper-3:  #CFC9B7;
+      --muted:    #6E6253;
+      --rule:     rgba(21,17,13,0.22);
+      --rule-soft:rgba(21,17,13,0.10);
+
+      --red:    #B23A2A;
+      --blue:   #205A8E;
+      --gold:   #8B6B22;
+      --green:  #2F6B36;
+      --purple: #4F2A75;
+      --indigo: #1F3A6B;
+      --bronze: #6B4A20;
+
+      --accent:   var(--red);
+    }
+
+    html[data-palette="midnight"] {
+      --ink:      #ECE2C5;
+      --ink-soft: #C8BB9C;
+      --paper:    #161821;
+      --paper-2:  #1D202C;
+      --paper-3:  #262A37;
+      --muted:    #8A8470;
+      --rule:     rgba(236,226,197,0.18);
+      --rule-soft:rgba(236,226,197,0.09);
+
+      --red:    #E0584A;
+      --blue:   #6FA5DE;
+      --gold:   #E8A820;
+      --green:  #7DBA62;
+      --purple: #B68FE0;
+      --indigo: #8AA8E8;
+      --bronze: #D49858;
+
+      --accent:   var(--gold);
+    }
+
+    html[data-palette="bone"] {
+      --ink:      #241A12;
+      --ink-soft: #4d3a28;
+      --paper:    #EDE3CE;
+      --paper-2:  #E2D6BB;
+      --paper-3:  #D2C29F;
+      --muted:    #7B6A4F;
+      --rule:     rgba(36,26,18,0.22);
+      --rule-soft:rgba(36,26,18,0.10);
+
+      --red:    #A05028;
+      --blue:   #346E8E;
+      --gold:   #B27322;
+      --green:  #4A6B2C;
+      --purple: #5E3A6A;
+      --indigo: #2F4374;
+      --bronze: #8E6320;
+
+      --accent:   var(--red);
+    }
+
+    /* Density — defaults defined on :root so they exist before JS sets [data-density] */
+    :root { --d-pad: 1; --d-gap: 1; --d-text: 1; }
+    html[data-density="dense"]    { --d-pad: 0.7; --d-gap: 0.75; --d-text: 0.94; }
+    html[data-density="spacious"] { --d-pad: 1;   --d-gap: 1;    --d-text: 1; }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Reset + base
+       ───────────────────────────────────────────────────────────────── */
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { min-height: 100%; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Inter", "Helvetica Neue", system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    /* Paper texture — extremely subtle SVG noise */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.45;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    }
+    html[data-palette="midnight"] body::before { mix-blend-mode: screen; opacity: 0.25; }
+
+    .app { position: relative; z-index: 1; }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Page frame
+       ───────────────────────────────────────────────────────────────── */
+
+    .page-frame {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: calc(56px * var(--d-pad)) calc(56px * var(--d-pad)) calc(40px * var(--d-pad));
+      position: relative;
+    }
+
+    @media (max-width: 900px) {
+      .page-frame { padding: 28px 20px; }
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Masthead
+       ───────────────────────────────────────────────────────────────── */
+
+    .masthead {
+      text-align: center;
+      padding-bottom: calc(36px * var(--d-pad));
+    }
+
+    .masthead-rule {
+      height: 0;
+      border-top: 1.5px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding: 3px 0;
+      margin: 0;
+    }
+
+    .masthead-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 10px 4px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .masthead-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      padding: calc(28px * var(--d-pad)) 0 calc(8px * var(--d-pad));
+    }
+
+    .masthead-ornament {
+      font-family: "Playfair Display", serif;
+      font-size: 28px;
+      color: var(--accent);
+      opacity: 0.85;
+    }
+
+    .masthead-name {
+      position: relative;
+      display: inline-block;
+      font-family: "Archivo Black", "Helvetica Neue", Arial, sans-serif;
+      font-weight: 900;
+      font-style: normal;
+      font-size: clamp(60px, 11vw, 158px);
+      line-height: 0.9;
+      letter-spacing: 0.015em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .masthead-name-the {
+      position: absolute;
+      bottom: 78%;
+      right: 100%;
+      margin-right: 0.16em;
+      font-family: "Archivo Black", "Helvetica Neue", Arial, sans-serif;
+      font-style: normal;
+      font-weight: 900;
+      font-size: 0.14em;
+      letter-spacing: 0.06em;
+      color: var(--ink-soft);
+      line-height: 1;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+
+    .masthead-period {
+      color: var(--accent);
+      font-family: "Archivo Black", sans-serif;
+      margin-left: -0.04em;
+    }
+
+    .masthead-sub {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: clamp(15px, 1.4vw, 19px);
+      color: var(--ink-soft);
+      padding: 4px 0 calc(24px * var(--d-pad));
+      letter-spacing: 0.02em;
+    }
+
+    .manifesto {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: calc(28px * var(--d-pad)) 24px 0;
+      text-align: center;
+    }
+
+    .manifesto-lead {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(28px, 3.6vw, 46px);
+      letter-spacing: 0.02em;
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 14px;
+    }
+
+    .manifesto-lead em {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-weight: 900;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+
+    .manifesto-body {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(14px, 1.05vw, 16.5px);
+      line-height: 1.7;
+      color: var(--ink-soft);
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Filter Bar
+       ───────────────────────────────────────────────────────────────── */
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: calc(12px * var(--d-gap));
+      padding: calc(32px * var(--d-pad)) 0 calc(20px * var(--d-pad));
+      border-top: 1px solid var(--rule);
+      margin-top: calc(36px * var(--d-pad));
+    }
+
+    .filter-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-right: 4px;
+    }
+
+    .filter-chip {
+      --chip-color: var(--ink);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px 9px 12px;
+      background: transparent;
+      border: 1.5px solid var(--rule);
+      color: var(--ink);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 160ms, border-color 160ms, color 160ms;
+    }
+    .filter-chip:hover {
+      border-color: var(--ink);
+      background: var(--paper-2);
+    }
+    .filter-chip.is-active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--paper);
+    }
+    .filter-chip.is-active .chip-glyph { color: var(--paper) !important; }
+    .filter-chip.is-active .chip-count { color: var(--accent); }
+
+    .chip-glyph { font-size: 12px; line-height: 1; }
+    .chip-label { font-weight: 500; }
+    .chip-count {
+      font-size: 9px;
+      padding: 2px 6px;
+      border: 1px solid currentColor;
+      opacity: 0.65;
+      letter-spacing: 0;
+      min-width: 22px;
+      text-align: center;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Grid eyebrow
+       ───────────────────────────────────────────────────────────────── */
+
+    .grid-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: calc(24px * var(--d-pad)) 0 calc(28px * var(--d-pad));
+    }
+    .grid-eyebrow-rule { flex: 1; height: 1px; background: var(--rule); }
+    .grid-eyebrow-text {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Tile Grid
+       ───────────────────────────────────────────────────────────────── */
+
+    .tile-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: calc(40px * var(--d-gap)) calc(32px * var(--d-gap));
+    }
+
+    @media (max-width: 1100px) {
+      .tile-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 680px) {
+      .tile-grid { grid-template-columns: 1fr; }
+    }
+
+    .tile {
+      cursor: pointer;
+      position: relative;
+      transition: transform 240ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    .tile:hover { transform: translateY(-4px); }
+
+    .tile-frame {
+      background: var(--paper);
+      border: 1.5px solid var(--ink);
+      box-shadow:
+        0 1px 0 var(--paper-3),
+        4px 4px 0 var(--ink),
+        4px 4px 0 0.5px var(--ink);
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 240ms;
+      overflow: hidden;
+    }
+    .tile:hover .tile-frame {
+      box-shadow:
+        0 1px 0 var(--paper-3),
+        7px 7px 0 var(--ink),
+        7px 7px 0 0.5px var(--ink);
+    }
+
+    /* Category strip — supports one or more category segments side by side */
+    .tile-cat-strip {
+      display: flex;
+      align-items: stretch;
+      border-bottom: 1.5px solid var(--ink);
+      background: var(--paper);
+      color: var(--paper);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      min-height: 28px;
+    }
+    .tile-cat-segs {
+      display: flex;
+      flex: 1;
+      min-width: 0;
+    }
+    .tile-cat-seg {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      flex: 1 1 0;
+      min-width: 0;
+      border-right: 1.5px solid var(--ink);
+      color: var(--paper);
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .tile-cat-seg:last-of-type { border-right: 1.5px solid var(--ink); }
+    .tile-cat-glyph { font-size: 11px; flex: none; }
+    .tile-cat-label {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .tile-no {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      background: var(--ink);
+      color: var(--paper);
+      opacity: 1;
+      letter-spacing: 0.22em;
+      flex: none;
+    }
+
+    /* Image */
+    .tile-image-wrap {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      background: var(--paper-2);
+      border-bottom: 1.5px solid var(--ink);
+      overflow: hidden;
+    }
+    .tile-image-wrap image-slot {
+      --is-bg: var(--paper-2);
+      background: var(--paper-2);
+    }
+    .tile-image-corner {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 26px;
+      height: 26px;
+      border: 1px solid var(--ink);
+      background: var(--paper);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--cat-color);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Bottom band */
+    .tile-body {
+      padding: calc(18px * var(--d-pad)) calc(18px * var(--d-pad)) calc(16px * var(--d-pad));
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .tile-title {
+      font-family: "Playfair Display", serif;
+      font-weight: 900;
+      font-size: calc(22px * var(--d-text));
+      line-height: 1.08;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .tile-pitch {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: calc(13px * var(--d-text));
+      line-height: 1.45;
+      color: var(--ink-soft);
+    }
+
+    .tile-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .meta-cell {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .meta-cell-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 8.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .meta-cell-value {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 16px;
+      line-height: 1.05;
+      letter-spacing: 0.03em;
+      color: var(--ink);
+    }
+
+    .tile-cta {
+      margin-top: 4px;
+      padding: 9px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-top: 1px dashed var(--rule);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cat-color);
+      opacity: 0.65;
+      transition: opacity 200ms;
+    }
+    .tile:hover .tile-cta {
+      opacity: 1;
+    }
+    .cta-arrow { transition: transform 200ms; }
+    .tile:hover .cta-arrow { transform: translateX(4px); }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Footer
+       ───────────────────────────────────────────────────────────────── */
+
+    .page-foot {
+      margin-top: calc(72px * var(--d-pad));
+    }
+    .foot-rule { height: 0; border-top: 1.5px solid var(--ink); border-bottom: 1px solid var(--ink); padding: 3px 0; }
+    .foot-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      padding: 18px 4px 6px;
+    }
+    .foot-logo {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 22px;
+      color: var(--ink);
+    }
+    .foot-contact, .foot-meta {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .foot-contact { color: var(--accent); }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Modal
+       ───────────────────────────────────────────────────────────────── */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 16, 12, 0.78);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 48px 24px;
+      overflow-y: auto;
+      animation: fadeIn 200ms ease-out;
+    }
+    @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+
+    .modal {
+      position: relative;
+      width: min(1080px, 100%);
+      background: var(--paper);
+      border: 2px solid var(--ink);
+      box-shadow: 12px 12px 0 var(--ink), 12px 12px 0 0.5px var(--ink);
+      animation: slideUp 280ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    @keyframes slideUp { from { transform: translateY(20px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
+
+    .modal-close {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      width: 44px;
+      height: 44px;
+      background: var(--ink);
+      color: var(--paper);
+      border: 2px solid var(--ink);
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 5;
+      font-family: "IBM Plex Mono", monospace;
+      transition: background 160ms;
+    }
+    .modal-close:hover { background: var(--cat-color); }
+
+    .modal-cat-strip {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 18px;
+      background: var(--cat-color);
+      color: var(--paper);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    }
+    @media (max-width: 800px) {
+      .modal-grid { grid-template-columns: 1fr; }
+    }
+
+    .modal-image {
+      position: relative;
+      background: var(--paper-2);
+      border-right: 2px solid var(--ink);
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+    }
+    @media (max-width: 800px) {
+      .modal-image { border-right: none; border-bottom: 2px solid var(--ink); aspect-ratio: 4/5; }
+    }
+
+    .modal-image image-slot {
+      flex: 1;
+      min-height: 360px;
+    }
+
+    .modal-image-caption {
+      padding: 10px 14px;
+      border-top: 1px solid var(--rule);
+      background: var(--paper);
+      display: flex;
+      gap: 12px;
+      align-items: baseline;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .caption-mark { color: var(--cat-color); font-weight: 600; }
+
+    .modal-content {
+      padding: 28px 32px 32px;
+      max-height: 78vh;
+      overflow-y: auto;
+    }
+
+    .modal-eyebrow {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--cat-color);
+      margin-bottom: 12px;
+    }
+
+    .modal-title {
+      font-family: "Playfair Display", serif;
+      font-weight: 900;
+      font-size: clamp(32px, 3vw, 44px);
+      line-height: 1.02;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+
+    .modal-pitch {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 17px;
+      line-height: 1.45;
+      color: var(--ink-soft);
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .modal-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 24px;
+      padding: 20px 0 22px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .modal-stat { display: flex; flex-direction: column; gap: 3px; }
+    .stat-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .stat-value {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+    }
+    .stat-value.sm {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 14px;
+      letter-spacing: 0;
+      color: var(--ink-soft);
+    }
+
+    /* Tabs */
+    .modal-tabs {
+      display: flex;
+      gap: 0;
+      margin-top: 22px;
+      border-bottom: 1.5px solid var(--ink);
+    }
+    .modal-tab {
+      background: transparent;
+      border: 1.5px solid var(--ink);
+      border-bottom: none;
+      padding: 9px 14px;
+      cursor: pointer;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-right: -1.5px;
+      margin-bottom: -1.5px;
+      transition: background 160ms, color 160ms;
+    }
+    .modal-tab.is-active {
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .modal-tab:not(.is-active):hover { background: var(--paper-2); }
+
+    .modal-tab-panel { padding-top: 22px; }
+
+    /* Brief */
+    .brief-para {
+      font-family: "Playfair Display", serif;
+      font-size: 15.5px;
+      line-height: 1.65;
+      color: var(--ink-soft);
+      margin-bottom: 14px;
+    }
+
+    .drop-cap {
+      float: left;
+      font-family: "Playfair Display", serif;
+      font-weight: 900;
+      font-size: 58px;
+      line-height: 0.92;
+      padding: 6px 8px 0 0;
+      color: var(--cat-color);
+    }
+
+    .scoping-callout {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border: 1.5px solid var(--ink);
+      background: var(--paper-2);
+      position: relative;
+    }
+    .scoping-callout::before {
+      content: "";
+      position: absolute;
+      top: -1.5px;
+      left: -1.5px;
+      width: 6px;
+      height: calc(100% + 3px);
+      background: var(--accent);
+    }
+    .scoping-eyebrow {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .scoping-row {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+    .scoping-price {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 44px;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+    }
+    .scoping-explain {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 13.5px;
+      line-height: 1.45;
+      color: var(--ink-soft);
+    }
+
+    /* Direction */
+    .direction-intro {
+      font-family: "Playfair Display", serif;
+      font-size: 14.5px;
+      font-style: italic;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      margin-bottom: 16px;
+    }
+
+    .prompt-block {
+      border: 1.5px solid var(--ink);
+      background: var(--paper-2);
+    }
+    .prompt-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .prompt-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+    }
+    .prompt-copy {
+      background: var(--accent);
+      color: var(--ink);
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: filter 160ms;
+    }
+    .prompt-copy:hover { filter: brightness(1.1); }
+
+    .prompt-body {
+      padding: 16px 14px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      line-height: 1.65;
+      color: var(--ink);
+    }
+    .prompt-scene { font-weight: 500; }
+    .prompt-preamble { color: var(--ink-soft); }
+    .prompt-rule {
+      height: 1px;
+      background: var(--rule);
+      margin: 12px 0;
+    }
+
+    .direction-tip {
+      margin-top: 14px;
+      padding: 12px 14px;
+      background: var(--paper-3);
+      font-family: "Playfair Display", serif;
+      font-size: 13.5px;
+      font-style: italic;
+      line-height: 1.55;
+      color: var(--ink-soft);
+    }
+    .direction-tip strong {
+      font-style: normal;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    /* Inquire */
+    .inquire-lede {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 14.5px;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      margin-bottom: 18px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: 14px;
+    }
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .field-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .field input, .field select, .field textarea {
+      font-family: "Playfair Display", serif;
+      font-size: 15px;
+      background: transparent;
+      border: none;
+      border-bottom: 1.5px solid var(--ink);
+      padding: 7px 2px;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 160ms;
+      border-radius: 0;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--accent);
+    }
+    .field textarea { resize: vertical; font-family: "Inter", sans-serif; font-size: 14px; line-height: 1.55; }
+    .field select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%); background-position: calc(100% - 14px) 50%, calc(100% - 9px) 50%; background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; padding-right: 28px; }
+
+    .inquire-actions {
+      margin-top: 22px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .inquire-submit {
+      background: var(--ink);
+      color: var(--paper);
+      border: 2px solid var(--ink);
+      padding: 14px 22px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 160ms, color 160ms;
+    }
+    .inquire-submit em {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-weight: 700;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--accent);
+      font-size: 14px;
+    }
+    .inquire-submit span { color: var(--accent); }
+    .inquire-submit:hover { background: var(--cat-color); border-color: var(--cat-color); }
+    .inquire-fineprint {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      max-width: 220px;
+      text-align: right;
+    }
+
+    .inquire-confirmation {
+      text-align: center;
+      padding: 24px 0 8px;
+    }
+    .confirmation-mark {
+      width: 60px;
+      height: 60px;
+      border: 2px solid var(--accent);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Playfair Display", serif;
+      font-size: 28px;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+    .inquire-confirmation h3 {
+      font-family: "Playfair Display", serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 28px;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .inquire-confirmation p {
+      font-family: "Playfair Display", serif;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      margin: 0 auto 24px;
+      max-width: 380px;
+    }
+    .inquire-confirmation em {
+      font-style: italic;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .confirmation-close {
+      background: transparent;
+      border: 1.5px solid var(--ink);
+      color: var(--ink);
+      padding: 10px 18px;
+      cursor: pointer;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      transition: background 160ms, color 160ms;
+    }
+    .confirmation-close:hover { background: var(--ink); color: var(--paper); }
+
+    /* Palette swatches (custom Tweaks control) */
+    .palette-swatches {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      width: 100%;
+    }
+    .palette-swatch {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px 6px 6px;
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.14);
+      cursor: pointer;
+      border-radius: 6px;
+      color: inherit;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: border-color 160ms, background 160ms;
+    }
+    .palette-swatch:hover { border-color: rgba(255,255,255,0.4); }
+    .palette-swatch.is-on { border-color: #E8A820; background: rgba(232,168,32,0.1); }
+    .palette-swatch-stack {
+      display: inline-flex;
+      width: 28px;
+      height: 22px;
+      border-radius: 4px;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid rgba(0,0,0,0.25);
+    }
+    .palette-swatch-stack i { flex: 1; display: block; }
+    .palette-swatch-label { white-space: nowrap; }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Filter bar — additions: secondary row, suggest pill, admin link
+       ───────────────────────────────────────────────────────────────── */
+
+    .filter-bar.secondary {
+      padding-top: 0;
+      border-top: none;
+      margin-top: -8px;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Suggest a Great Work — sticky right-side drawer
+       ───────────────────────────────────────────────────────────────── */
+
+    .suggest-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      z-index: 80;
+      pointer-events: none;
+    }
+
+    .suggest-handle {
+      pointer-events: auto;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      writing-mode: vertical-rl;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 11px 18px 9px;
+      background: var(--ink);
+      color: var(--paper);
+      border: none;
+      border-left: 3px solid var(--accent);
+      cursor: pointer;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      transition: background 180ms, color 180ms, transform 240ms cubic-bezier(0.2,0.7,0.2,1), opacity 220ms;
+      box-shadow: -2px 0 0 var(--accent), -3px 3px 0 var(--ink);
+    }
+    .suggest-handle:hover {
+      background: var(--accent);
+      color: var(--ink);
+      transform: translateY(-50%) translateX(-2px);
+    }
+    .suggest-handle .handle-glyph {
+      writing-mode: horizontal-tb;
+      font-size: 14px;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .suggest-handle:hover .handle-glyph { color: var(--ink); }
+    .suggest-handle em {
+      writing-mode: horizontal-tb;
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 14px;
+      line-height: 1;
+    }
+    .suggest-handle:hover em { color: var(--ink); }
+
+    .suggest-drawer.is-open .suggest-handle {
+      opacity: 0;
+      transform: translateY(-50%) translateX(24px);
+      pointer-events: none;
+    }
+
+    .suggest-panel {
+      pointer-events: auto;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(440px, 92vw);
+      background: var(--paper);
+      border-left: 2px solid var(--ink);
+      box-shadow: -8px 0 0 var(--ink), -10px 0 28px rgba(20,16,12,0.25);
+      transform: translateX(108%);
+      transition: transform 340ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .suggest-drawer.is-open .suggest-panel {
+      transform: translateX(0);
+    }
+
+    .suggest-panel-head {
+      padding: 22px 26px 18px;
+      border-bottom: 1.5px solid var(--ink);
+      background: var(--paper-2);
+      position: relative;
+    }
+    .suggest-panel-eyebrow {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .suggest-panel-title {
+      font-family: "Playfair Display", serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 26px;
+      line-height: 1.04;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 8px;
+      padding-right: 36px;
+    }
+    .suggest-panel-lede {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--ink-soft);
+    }
+    .suggest-panel-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 30px;
+      height: 30px;
+      background: transparent;
+      border: 1.5px solid var(--ink);
+      color: var(--ink);
+      cursor: pointer;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 13px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 160ms, color 160ms;
+    }
+    .suggest-panel-close:hover { background: var(--ink); color: var(--paper); }
+
+    .suggest-panel-body {
+      padding: 20px 26px 26px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .suggest-panel-body .field { margin-bottom: 14px; }
+    .suggest-panel-body .inquire-actions { margin-top: 18px; align-items: center; }
+    .suggest-panel-body .inquire-submit { padding: 12px 18px; font-size: 10.5px; }
+    .suggest-panel-body .inquire-fineprint { max-width: 160px; font-size: 8.5px; }
+
+    @media (max-width: 700px) {
+      .suggest-handle {
+        padding: 14px 9px 14px 8px;
+        font-size: 9.5px;
+        letter-spacing: 0.22em;
+      }
+      .suggest-handle em { font-size: 12px; }
+    }
+
+    .admin-link {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 4px 2px;
+      transition: color 160ms;
+    }
+    .admin-link:hover { color: var(--accent); }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Admin Panel
+       ───────────────────────────────────────────────────────────────── */
+
+    .admin-shell {
+      position: fixed;
+      inset: 0;
+      background: var(--paper);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      animation: fadeIn 180ms ease-out;
+    }
+    .admin-topbar {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 18px 28px;
+      border-bottom: 2px solid var(--ink);
+      background: var(--paper-2);
+    }
+    .admin-topbar-title {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 22px;
+      color: var(--ink);
+    }
+    .admin-topbar-eyebrow {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .admin-topbar-spacer { flex: 1; }
+
+    .admin-btn {
+      background: transparent;
+      border: 1.5px solid var(--ink);
+      color: var(--ink);
+      padding: 9px 14px;
+      cursor: pointer;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: background 160ms, color 160ms;
+    }
+    .admin-btn:hover { background: var(--ink); color: var(--paper); }
+    .admin-btn.is-primary { background: var(--ink); color: var(--paper); }
+    .admin-btn.is-primary:hover { background: var(--accent); color: var(--ink); border-color: var(--accent); }
+    .admin-btn.is-danger:hover { background: var(--red); color: var(--paper); border-color: var(--red); }
+
+    .admin-body {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      flex: 1;
+      min-height: 0;
+    }
+    @media (max-width: 900px) {
+      .admin-body { grid-template-columns: 1fr; }
+    }
+
+    .admin-list {
+      border-right: 1.5px solid var(--rule);
+      overflow-y: auto;
+      background: var(--paper);
+    }
+    .admin-list-head {
+      padding: 14px 18px 10px;
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      position: sticky;
+      top: 0;
+      background: var(--paper);
+      z-index: 1;
+    }
+    .admin-list-head-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .admin-add {
+      background: transparent;
+      border: 1.5px solid var(--ink);
+      color: var(--ink);
+      padding: 5px 10px;
+      cursor: pointer;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: background 160ms, color 160ms;
+    }
+    .admin-add:hover { background: var(--accent); border-color: var(--accent); color: var(--ink); }
+
+    .admin-row {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--rule-soft);
+      padding: 12px 18px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: background 140ms;
+    }
+    .admin-row:hover { background: var(--paper-2); }
+    .admin-row.is-active { background: var(--paper-3); }
+    .admin-row-no {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      color: var(--row-color, var(--muted));
+      text-transform: uppercase;
+    }
+    .admin-row-title {
+      font-family: "Playfair Display", serif;
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 1.15;
+      color: var(--ink);
+    }
+    .admin-row-meta {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .admin-editor {
+      overflow-y: auto;
+      padding: 24px 32px 48px;
+    }
+    .admin-editor-empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--muted);
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 16px;
+    }
+
+    .admin-editor-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 1.5px solid var(--ink);
+    }
+    .admin-editor-head h3 {
+      font-family: "Playfair Display", serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 22px;
+      color: var(--ink);
+      flex: 1;
+    }
+
+    .admin-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .admin-field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .admin-field-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .admin-field input,
+    .admin-field select,
+    .admin-field textarea {
+      font-family: "Inter", "Helvetica Neue", sans-serif;
+      font-size: 14px;
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      padding: 9px 10px;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 160ms;
+      border-radius: 0;
+    }
+    .admin-field input:focus,
+    .admin-field select:focus,
+    .admin-field textarea:focus { border-color: var(--accent); }
+    .admin-field textarea { resize: vertical; line-height: 1.5; font-family: "Playfair Display", serif; font-size: 15px; }
+    .admin-field-hint {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .admin-section {
+      margin-top: 22px;
+      padding-top: 14px;
+      border-top: 1px solid var(--rule);
+    }
+    .admin-section-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .admin-actions {
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1.5px solid var(--ink);
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .admin-toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 12px 18px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      border: 2px solid var(--accent);
+      z-index: 250;
+      animation: slideUp 220ms ease-out;
+    }
+    .admin-toast em {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 13px;
+      margin-left: 6px;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Suggest modal (smaller variant of project modal)
+       ───────────────────────────────────────────────────────────────── */
+    .modal.modal-narrow {
+      width: min(640px, 100%);
+    }
+    .modal-suggest-head {
+      padding: 26px 32px 18px;
+      border-bottom: 1.5px solid var(--ink);
+    }
+    .modal-suggest-eyebrow {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .modal-suggest-title {
+      font-family: "Playfair Display", serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: clamp(28px, 3vw, 38px);
+      line-height: 1.02;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .modal-suggest-lede {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--ink-soft);
+    }
+    .modal-suggest-body {
+      padding: 22px 32px 30px;
+    }
+
+    /* Modal cat strip: slightly taller variant of the tile strip */
+    .tile-cat-strip.is-modal {
+      min-height: 36px;
+      font-size: 10.5px;
+    }
+    .tile-cat-strip.is-modal .tile-cat-seg {
+      padding: 9px 18px;
+    }
+    .tile-cat-strip.is-modal .tile-no {
+      padding: 9px 18px;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Partners strip
+       ───────────────────────────────────────────────────────────────── */
+    .partners-section {
+      margin: 0 0 calc(28px * var(--d-pad));
+      padding: 0;
+    }
+    .partners-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .partners-rule {
+      flex: 1;
+      border-top: 1px solid var(--rule);
+    }
+    .partners-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .partners-marquee {
+      overflow: hidden;
+      mask-image: linear-gradient(to right,
+        transparent 0,
+        #000 6%,
+        #000 94%,
+        transparent 100%);
+      -webkit-mask-image: linear-gradient(to right,
+        transparent 0,
+        #000 6%,
+        #000 94%,
+        transparent 100%);
+    }
+    .partners-track {
+      display: flex;
+      align-items: stretch;
+      gap: 56px;
+      width: max-content;
+      animation: gw-marquee 60s linear infinite;
+    }
+    .partners-marquee:hover .partners-track {
+      animation-play-state: paused;
+    }
+    @keyframes gw-marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .partner {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 0;
+    }
+    .partner-logo {
+      width: 160px;
+      height: 70px;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      overflow: hidden;
+      filter: grayscale(1);
+      opacity: 0.85;
+      transition: filter 220ms, opacity 220ms;
+    }
+    .partner:hover .partner-logo {
+      filter: grayscale(0);
+      opacity: 1;
+    }
+    .partner-logo image-slot {
+      width: 100%;
+      height: 100%;
+    }
+    .partner-name {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      max-width: 160px;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Admin: list sections (Partners + Works) & category checkboxes
+       ───────────────────────────────────────────────────────────────── */
+    .admin-list-section + .admin-list-section {
+      border-top: 2px solid var(--ink);
+    }
+    .admin-row.admin-row-sm {
+      padding: 10px 18px;
+    }
+    .admin-row.admin-row-sm .admin-row-title {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12.5px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      text-transform: none;
+    }
+
+    .cat-checkboxes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 2px;
+    }
+    @media (max-width: 700px) {
+      .cat-checkboxes { grid-template-columns: 1fr; }
+    }
+    .cat-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border: 1.5px solid var(--rule);
+      background: var(--paper);
+      cursor: pointer;
+      transition: border-color 140ms, background 140ms;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .cat-checkbox input {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid var(--ink-soft);
+      background: var(--paper);
+      cursor: pointer;
+      position: relative;
+      flex: none;
+    }
+    .cat-checkbox.is-on {
+      border-color: var(--cat-color);
+      background: color-mix(in srgb, var(--cat-color) 8%, var(--paper));
+      color: var(--ink);
+    }
+    .cat-checkbox.is-on input {
+      background: var(--cat-color);
+      border-color: var(--cat-color);
+    }
+    .cat-checkbox.is-on input::after {
+      content: "✓";
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--paper);
+      font-size: 11px;
+      line-height: 1;
+    }
+    .cat-checkbox-glyph {
+      font-size: 14px;
+      color: var(--cat-color);
+      width: 14px;
+      text-align: center;
+    }
+    .cat-checkbox-label { flex: 1; }
+
+    .admin-partner-preview {
+      padding: 16px;
+      background: var(--paper-2);
+      border: 1px solid var(--rule);
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* image-slot tuning: blend default placeholder with the paper */
+    image-slot {
+      background: var(--paper-2) !important;
+    }
+
+    /* Scrollbar inside modal — keep it discreet */
+    .modal-content::-webkit-scrollbar { width: 8px; }
+    .modal-content::-webkit-scrollbar-track { background: transparent; }
+    .modal-content::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 0; }
+    .modal-content::-webkit-scrollbar-thumb:hover { background: var(--ink); }
+
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- Project data (inlined) -->
+  <script>
+/* Great Works Studio — The Pantheon
+   Project data. Each entry feeds a magazine-cover tile + a detail modal.
+   `categories` is an array of category IDs (a project can carry multiple tags).
+   `category` is preserved for legacy fields — kept in sync with categories[0].
+*/
+
+window.GW_STYLE_PREAMBLE =
+  "Editorial cover illustration in the style of 1940s Fortune Magazine and golden-age comics. Painterly gouache, flat planes of saturated color, dramatic chiaroscuro, subtle grain. Limited palette of ink black, cream parchment, oxblood red, lapis blue, and bullion gold. Composition is symbolic, monumental, slightly surreal — closer to Cassandre and Lurçat than realism. Strong geometry, low horizon, single shaft of light. No text, no logos, no captions. Square format, 4:5 portrait variant.";
+
+window.GW_CATEGORIES = {
+  arcane: {
+    id: "arcane",
+    label: "Arcane Inquiries",
+    glyph: "▲",
+    color: "var(--purple)",
+    blurb: "Funding the illegible — work that the market refuses to recognize.",
+  },
+  garden: {
+    id: "garden",
+    label: "Garden Empire",
+    glyph: "◆",
+    color: "var(--green)",
+    blurb: "Continental-scale acts of restoration, eradication, and rewilding.",
+  },
+  monumental: {
+    id: "monumental",
+    label: "Monumental Works",
+    glyph: "●",
+    color: "var(--red)",
+    blurb: "Civic objects on the scale of cathedrals, canals, and coastlines.",
+  },
+  commissioned: {
+    id: "commissioned",
+    label: "Commissioned Ventures",
+    glyph: "◈",
+    color: "var(--blue)",
+    blurb: "Bespoke institutions and companies, commissioned to answer a single brief.",
+  },
+  union: {
+    id: "union",
+    label: "A More Perfect Union",
+    glyph: "★",
+    color: "var(--indigo)",
+    blurb: "Civic re-architecture for the American experiment in its third century.",
+  },
+  defense: {
+    id: "defense",
+    label: "Civilizational Defense",
+    glyph: "◤",
+    color: "var(--bronze)",
+    blurb: "Hardening the foundations beneath the things worth keeping.",
+  },
+};
+
+// Time-horizon bands used by the filter. Each project carries a `years` value
+// (2 | 5 | 10 | 25). Retained on the project record for now even though the
+// horizon filter UI has been removed.
+window.GW_HORIZONS = [
+  { id: 2,  label: "2 years",  glyph: "✓" },
+  { id: 5,  label: "5 years",  glyph: "◐" },
+  { id: 10, label: "10 years", glyph: "◑" },
+  { id: 25, label: "25 years", glyph: "●" },
+];
+
+window.GW_PROJECTS = [
+  // ── Garden Empire ────────────────────────────────────────────────────
+  {
+    id: "ticks",
+    no: "GW—01",
+    categories: ["garden"],
+    title: "Eradicate Ticks from the United States",
+    pitch: "A coordinated continental-scale extirpation of Ixodes scapularis.",
+    budget: "$80M",
+    timeline: "8 years",
+    years: 10,
+    scoping: "$500,000",
+    horizon: "Decade",
+    lead: "Vector biologist — TBD",
+    locale: "Continental USA",
+    body: [
+      "Lyme disease and its co-infections disable hundreds of thousands of Americans every year, with cases doubling each decade. The blacklegged tick that carries them is geographically tractable: its life cycle is small, its host range narrow, its genome sequenced.",
+      "Combining oral mouse-vaccine baits, targeted gene drive on a contained Atlantic island as proof-of-concept, and a multi-state federal coordinating compact, we believe Ixodes scapularis can be extirpated from the continental United States within a decade. The biology is not the bottleneck. The bottleneck is patron, charter, and political cover.",
+      "Phase I delivers the scientific advisory board, the legal framework for the island trial, and the federal-state compact draft.",
+    ],
+    imagePrompt:
+      "A topographic relief map of the eastern United States rendered as a textured tapestry, with a thinning cloud of small dark insects dissolving above it into points of light. Symbolic, painterly, 1940s Fortune cover style.",
+    accent: "green",
+  },
+  {
+    id: "chestnut",
+    no: "GW—02",
+    categories: ["garden"],
+    title: "The American Chestnut Restoration",
+    pitch: "Return the lost canopy giant to three million acres of Appalachia.",
+    budget: "$30M",
+    timeline: "25 years",
+    years: 25,
+    scoping: "$300,000",
+    horizon: "Generational",
+    lead: "American Chestnut Foundation alliance",
+    locale: "Appalachian range",
+    body: [
+      "Before the blight, one in every four trees east of the Mississippi was an American chestnut — a single species responsible for the architecture, economy, and ecology of a third of the continent. The blight took it in forty years. The blight-resistant transgenic Darling-58 is real, federally deregulated, and waiting.",
+      "The remaining bottlenecks are land, labor, and patience. We propose a private trust to plant six million chestnuts across the spine of the Appalachians over a quarter-century, in partnership with the American Chestnut Foundation, the Forest Service, and state land trusts.",
+      "Phase I assembles the trust, the land pipeline, and the first hundred-acre demonstration plantings.",
+    ],
+    imagePrompt:
+      "A single colossal American chestnut tree in full leaf, rising over Appalachian ridgelines at golden hour. Below, a small figure for scale. Painterly, romantic, autumnal palette, 1940s Fortune cover style.",
+    accent: "green",
+  },
+  {
+    id: "wolf-corridor",
+    no: "GW—03",
+    categories: ["garden"],
+    title: "The Wolf Corridor",
+    pitch: "An unbroken eight-hundred-mile wild migration path from Maine to the Smokies.",
+    budget: "$45M",
+    timeline: "15 years",
+    years: 25,
+    scoping: "$400,000",
+    horizon: "Generational",
+    lead: "Conservation biologist + land trust principal",
+    locale: "Eastern seaboard",
+    body: [
+      "Top predators set the shape of an ecosystem. The American East has not had one at continental scale since the eastern timber wolf was extirpated in the nineteenth century. The result is a forest that has forgotten how to behave like a forest.",
+      "We propose to assemble — through purchase, easement, and federal partnership — an unbroken corridor of forest reaching from Acadia National Park to Great Smoky Mountains National Park, with sufficient width and connectivity to support the natural reintroduction of the eastern wolf.",
+      "Phase I produces the corridor map, the parcel acquisition strategy, and the political and tribal partnerships required to thread it.",
+    ],
+    imagePrompt:
+      "A lone wolf on a high ridge silhouetted against a streaked dusk sky in deep blues and oxblood reds. Far below, a forest stretches to a low horizon. Painterly, slightly heroic, 1940s Fortune cover style.",
+    accent: "green",
+  },
+  {
+    id: "lightning-bugs",
+    no: "GW—04",
+    categories: ["garden"],
+    title: "Repopulate the Lightning Bugs",
+    pitch: "Restore the vanished summer firefly to the eastern half of the continent.",
+    budget: "$22M",
+    timeline: "10 years",
+    years: 10,
+    scoping: "$250,000",
+    horizon: "Decade",
+    lead: "Entomologist + land-use coalition — TBD",
+    locale: "Eastern USA",
+    body: [
+      "Anyone over forty remembers a backyard that flickered. Habitat loss, pesticide drift, and light pollution have collapsed firefly populations across most of the country in a single generation. The species is recoverable; the habits that doom it are reversible at the level of policy, lighting ordinance, and lawn care.",
+      "We propose a continental restoration program: dark-sky agreements with a thousand municipalities, larval-habitat trusts on private land, and a long-running citizen science census tied to a federal monitoring partner.",
+      "Phase I produces the coalition, the monitoring protocol, and the first ten anchor municipalities.",
+    ],
+    imagePrompt:
+      "A dusk meadow at the edge of trees, with countless small golden points of light hovering above tall grass. A child's silhouette stands at the threshold. Painterly, hushed, 1940s Fortune cover style.",
+    accent: "green",
+  },
+  {
+    id: "great-salt-lake",
+    no: "GW—05",
+    categories: ["garden"],
+    title: "Refill the Great Salt Lake",
+    pitch: "Reverse the desiccation of America's largest inland sea before its bed becomes airborne.",
+    budget: "$140M",
+    timeline: "10 years",
+    years: 10,
+    scoping: "$500,000",
+    horizon: "Decade",
+    lead: "Hydrology + western water-rights coalition — TBD",
+    locale: "Utah / Great Basin",
+    body: [
+      "The Great Salt Lake has lost more than two-thirds of its surface and is, on its current trajectory, on track to become the most consequential dust source in North America — arsenic, mercury, and lead drifting into the lungs of three million people. The cause is unambiguous: upstream agricultural withdrawals. The fix is unambiguous: reduce them.",
+      "We propose a private trust to retire water rights, fund precision-irrigation conversion, and underwrite the political work required to legislate a permanent floor for the lake's surface elevation.",
+      "Phase I delivers the trust structure, the rights-acquisition pipeline, and the legislative campaign in Salt Lake City.",
+    ],
+    imagePrompt:
+      "An aerial view of a shrinking inland sea, salt-pan rings receding from a small blue center, distant snowed mountains. Painterly, ominous, 1940s Fortune cover style.",
+    accent: "green",
+  },
+  {
+    id: "mycoremediation",
+    no: "GW—06",
+    categories: ["garden"],
+    title: "Scale Mycoremediation for Superfund Sites",
+    pitch: "Fungi that eat industrial poisons, deployed across the EPA's worst land.",
+    budget: "$60M",
+    timeline: "10 years",
+    years: 10,
+    scoping: "$450,000",
+    horizon: "Decade",
+    lead: "Mycologist + remediation engineer — TBD",
+    locale: "Initial sites: Region IX (CA/AZ/NV)",
+    body: [
+      "There are 1,300+ active Superfund sites in the United States — abandoned mines, refineries, smelters, and creosote yards whose soils will be toxic for centuries under conventional remediation. The standard fix is excavation and landfill: we move the poison from one place to another and call it managed.",
+      "A small body of work — Stamets, the Battelle group, recent literature out of Penn State — shows that specific fungal consortia can metabolize hydrocarbons, mercury, and heavy-metal complexes in situ, at orders of magnitude lower cost than removal. The science is real; the deployment infrastructure does not exist.",
+      "We propose to assemble it: a continental network of mycoremediation labs, a strain library, a regulatory pathway through EPA Region pilots, and a contracting model that out-bids excavation for the first ten sites.",
+      "Phase I builds the science team, secures the first pilot site, and produces the regulatory roadmap.",
+    ],
+    imagePrompt:
+      "A cross-section of contaminated earth in painterly chiaroscuro: black industrial soil at the surface, lacy white mycelium threading down through it, clean amber soil and roots emerging beneath. Single shaft of light from above. 1940s Fortune cover style.",
+    accent: "green",
+  },
+
+  // ── Monumental Works ─────────────────────────────────────────────────
+  {
+    id: "expand-manhattan",
+    no: "GW—07",
+    categories: ["monumental"],
+    title: "Expand Manhattan",
+    pitch: "Add 1,760 acres of new land to the south of the Battery.",
+    budget: "$1.7B",
+    timeline: "Generational",
+    years: 25,
+    scoping: "$750,000",
+    horizon: "Civic / generational",
+    lead: "Civil engineering consortium",
+    locale: "New York Harbor",
+    body: [
+      "Manhattan's housing crisis is, at root, a problem of geometry. There is not enough island. The original landfill that built Battery Park City and most of lower Manhattan ran for a century and a half; the project simply ended. It need not have.",
+      "We propose extending the southern tip of Manhattan into the lower harbor — a phased landfill program on the scale of the original, but engineered for sea-level rise from the first foot. Housing for 250,000. A second downtown. Coastal protection for everything north of it. The largest civic project of the century.",
+      "Phase I delivers the feasibility study, the engineering preliminaries, and the early political alignment in Albany and City Hall.",
+    ],
+    imagePrompt:
+      "An aerial cutaway of lower Manhattan with a new landmass extending southward into the harbor — drafted in the painterly style of a 1950s civic-engineering brochure. Cranes, barges, dotted parcel lines, gold sun reflecting off the water.",
+    accent: "red",
+  },
+  {
+    id: "bullet-train",
+    no: "GW—08",
+    categories: ["monumental"],
+    title: "A National Bullet Train System",
+    pitch: "A continent stitched together by steel, at the speed the rest of the world has had for fifty years.",
+    budget: "$80B+",
+    timeline: "25 years",
+    years: 25,
+    scoping: "$1,500,000",
+    horizon: "Generational",
+    lead: "Engineering consortium + federal compact — TBD",
+    locale: "Continental USA",
+    body: [
+      "Every other peer nation built theirs in the second half of the twentieth century. America did not, for reasons that are entirely about coordination and almost not at all about engineering. The result is a continental economy that moves freight by rail and people by car or air, badly.",
+      "We propose a thirty-thousand-mile dedicated high-speed network, anchored on the existing northeast and California corridors and extended in phases. A private trust does the corridor assembly the federal government has failed at; a federal compact runs the operating company.",
+      "Phase I delivers the corridor atlas, the right-of-way strategy, the federal compact draft, and the first private-trust capital stack.",
+    ],
+    imagePrompt:
+      "A long silver bullet train cutting across a vast painted American landscape at dusk, mountains in the distance, telegraph poles ticking past. Painterly, monumental, 1940s Fortune cover style.",
+    accent: "red",
+  },
+
+  // ── Commissioned Ventures ────────────────────────────────────────────
+  {
+    id: "birth-centers",
+    no: "GW—09",
+    categories: ["commissioned"],
+    title: "A National Network of Birth Centers",
+    pitch: "Doula- and midwife-led birth centers as the default site of low-risk American birth.",
+    budget: "$120M",
+    timeline: "10 years",
+    years: 10,
+    scoping: "$500,000",
+    horizon: "Decade",
+    lead: "Obstetric clinician + health-system operator — TBD",
+    locale: "First 25 sites — mixed urban / rural",
+    body: [
+      "American hospital birth is the most expensive in the world and produces the worst maternal-health outcomes of any wealthy country. Black mothers die at three to four times the rate of white mothers. The procedural defaults — continuous monitoring, supine labor, routine intervention — are an artifact of mid-century hospital economics, not of evidence.",
+      "Freestanding, midwife- and doula-led birth centers cut cost by more than half, drop unnecessary intervention dramatically, and — for low-risk pregnancies, the overwhelming majority — match or beat hospital outcomes. The model is proven. It does not exist at scale in the United States for reasons of insurance, real estate, and credentialing.",
+      "We propose a venture that builds and operates a national network — twenty-five centers in ten years, anchored on integration agreements with one major health system per region, a unified credentialing pipeline, and a national insurance product that pays for the model directly.",
+      "Phase I produces the operator team, the first three site selections, and the payor and health-system MOUs.",
+    ],
+    imagePrompt:
+      "A quiet, light-filled room with a single bed and a window looking out on dawn; a midwife's silhouette stands beside it. Painterly, hushed, gentle palette of cream, oxblood, and gold. 1940s Fortune cover style.",
+    accent: "blue",
+  },
+  {
+    id: "biohardening",
+    no: "GW—10",
+    categories: ["commissioned", "defense"],
+    title: "Biohardening Products for Critical Built Environments",
+    pitch: "A venture that ships engineered hardware to harden hospitals, transit, and schools against biological threats.",
+    budget: "$45M (venture)",
+    timeline: "5 years",
+    years: 5,
+    scoping: "$350,000",
+    horizon: "Half-decade",
+    lead: "Indoor-air engineer + product CEO — TBD",
+    locale: "Boston / Atlanta",
+    body: [
+      "Most of the buildings that matter in a pandemic — hospitals, airports, mass-transit nodes, schools — are biologically defenseless. HVAC filtration is below MERV-13. Surface materials are passive. Far-UVC is barely deployed. The interventions that work are well-characterized in the literature and almost entirely absent from the catalog of an HVAC contractor.",
+      "We propose a venture that ships the missing products: drop-in MERV-16 retrofits, far-UVC ceiling fixtures certified for occupied spaces, antimicrobial surface laminates, and the data layer that lets a hospital procurement officer prove a building's biological hardening to an insurer.",
+      "The market is paying for none of this today and will pay for all of it the day after the next outbreak. We would rather build the company before the day.",
+      "Phase I assembles the product team, validates the first three SKUs with a pilot health system, and closes the seed round.",
+    ],
+    imagePrompt:
+      "A painterly cutaway of a hospital corridor with glowing engineered ceiling panels casting a clean violet light, air moving in invisible currents through unseen filtration. Monumental, slightly clinical, 1940s Fortune cover style.",
+    accent: "bronze",
+  },
+  {
+    id: "guardian-ai",
+    no: "GW—11",
+    categories: ["commissioned", "defense"],
+    title: "Guardian Model Development",
+    pitch: "Continuous, real-time AI monitoring of frontier biological AI deployments.",
+    budget: "$30M (venture)",
+    timeline: "3 years",
+    years: 5,
+    scoping: "$400,000",
+    horizon: "Half-decade",
+    lead: "ML researcher + biosafety lead — TBD",
+    locale: "San Francisco / DC",
+    body: [
+      "Frontier models are increasingly capable of meaningful contributions to biological design — gene editing, viral engineering, synthesis planning. The labs deploying them rely on training-time safety work that is, by construction, brittle: a single jailbreak collapses it. Inference-time monitoring is a separable problem, well-suited to a smaller dedicated model.",
+      "We propose a Guardian: a continuously-trained companion model that audits frontier-model interactions in real time for biological-uplift signals, with sub-second latency, an independent governance structure, and a published evaluation suite. Sold under contract to frontier labs and operated under the supervision of a non-profit safety board.",
+      "Phase I builds the founding team, secures a first-customer contract with a frontier lab, and produces the evaluation framework.",
+    ],
+    imagePrompt:
+      "A single oxblood-red eye, opened wide, rendered as a stylized circuit-board mandala — symmetric, geometric, watching. Surrounded by faint constellations of code. Painterly, severe, 1940s Fortune cover style.",
+    accent: "bronze",
+  },
+
+  // ── Arcane Inquiries ─────────────────────────────────────────────────
+  {
+    id: "safir",
+    no: "GW—12",
+    categories: ["arcane"],
+    title: "Simple Agreement for Future IP Royalties",
+    pitch: "A scalable legal instrument that gives patrons a small share of any commercial IP born of their grant.",
+    budget: "$1.2M",
+    timeline: "2 years",
+    years: 2,
+    scoping: "$150,000",
+    horizon: "Two years",
+    lead: "Securities counsel + nonprofit-law lead — TBD",
+    locale: "Distributed",
+    body: [
+      "The grant has not meaningfully evolved as an instrument since the 1950s. Philanthropy still treats every dollar as terminal, even when the work it funds becomes valuable IP — a drug, a software platform, a patent. The patron gets a tax receipt; the world gets a windfall it never returns.",
+      "We propose SAFIR: a YC-SAFE-like template that lets a patron's grant carry a small participation right in any commercial IP the work eventually produces, with clean default terms, a single-page execution copy, and IRS and 501(c)(3) compatibility worked out in advance. Open-sourced once final.",
+      "Phase I retains the counsel, drafts the instrument, and shepherds it through the first three pilot grants.",
+    ],
+    imagePrompt:
+      "A single sheet of legal paper on a dark desk, lit from above, with a brass pen and a wax seal half-finished beside it. Painterly chiaroscuro, 1940s Fortune cover style.",
+    accent: "purple",
+  },
+
+  // ── Civilizational Defense ───────────────────────────────────────────
+  {
+    id: "ppe-stockpiles",
+    no: "GW—13",
+    categories: ["defense"],
+    title: "Pandemic PPE Stockpiles",
+    pitch: "Procure and quietly cache pandemic-grade PPE near every major U.S. metro before we need it again.",
+    budget: "$220M",
+    timeline: "3 years",
+    years: 5,
+    scoping: "$300,000",
+    horizon: "Half-decade",
+    lead: "Logistics principal + biosecurity counsel — TBD",
+    locale: "20 metros, undisclosed sites",
+    body: [
+      "The 2020 PPE crisis was not a manufacturing failure; it was an inventory failure. The Strategic National Stockpile held a fraction of the demand in the first week, and what was held was older than the people it was meant to protect. Replenishment policy has not meaningfully changed. The next pandemic — and there will be one — will repeat the exact failure unless someone with a longer horizon than a federal procurement cycle does the work.",
+      "We propose a private, philanthropy-funded stockpile: pandemic-grade respirators, gowns, gloves, and elastomeric replacements, procured to spec, rotated on a verified shelf-life schedule, and pre-positioned in low-profile warehouses within four hours of every U.S. metro of more than one million people.",
+      "The caches are private until the day they are needed. On that day, they are donated, by pre-arranged agreement, to a coordinating federal partner. The whole point is that they exist before the panic and arrive before the supply chain has time to fail.",
+      "Phase I delivers the procurement plan, the site network, and the federal-handoff legal structure.",
+    ],
+    imagePrompt:
+      "A single anonymous warehouse at the edge of a city at dawn, doors closed, stacks of unmarked crates seen faintly through one tall window. Painterly, restrained, deeply quiet. 1940s Fortune cover style.",
+    accent: "bronze",
+  },
+
+  // ── A More Perfect Union ─────────────────────────────────────────────
+  {
+    id: "national-service",
+    no: "GW—14",
+    categories: ["union"],
+    title: "Install a National Service Program",
+    pitch: "A bipartisan civilian-service year for every American high school graduate.",
+    budget: "$60M (campaign) + federal implementation",
+    timeline: "5 years to enactment",
+    years: 5,
+    scoping: "$500,000",
+    horizon: "Half-decade",
+    lead: "Coalition principal — TBD",
+    locale: "Washington, DC",
+    body: [
+      "America is fractured in part because young Americans no longer meet each other. A mandatory year of civilian service — an internal Peace Corps, organized so that no participant serves within five hundred miles of where they grew up — is the highest-leverage civic intervention available to us.",
+      "We propose to design the program, build the bipartisan political coalition required to pass it, and shepherd its installation as federal law within a single presidential term. The work is principally legislative, not architectural: the policy mechanics are well understood; the politics are not.",
+      "Phase I produces the coalition map, the model legislation, and the first wave of governor and senator endorsements required to move it.",
+    ],
+    imagePrompt:
+      "A line of young Americans of every background standing at attention in front of an enormous painted map of the United States, dawn light from the east, civilian uniforms. Painterly, hopeful, 1940s Fortune cover style.",
+    accent: "indigo",
+  },
+  {
+    id: "special-economic-zone",
+    no: "GW—15",
+    categories: ["union"],
+    title: "A Special Economic Zone within the United States",
+    pitch: "A geographically bounded zone where most ubiquitous regulation does not apply.",
+    budget: "$25M (assembly) + state partnership",
+    timeline: "10 years",
+    years: 10,
+    scoping: "$600,000",
+    horizon: "Decade",
+    lead: "Constitutional lawyer + state-government principal — TBD",
+    locale: "TBD — candidate states identified",
+    body: [
+      "A zone free of most otherwise ubiquitous regulations, to allow for an intentional tradeoff of caution in favor of accelerated innovation. Like Hong Kong but without the human rights violations. Within the zone: streamlined construction, simplified financial supervision, a unified state-federal regulator, a sunset on most administrative rule-making.",
+      "We propose to design the zone — its legal scaffolding, its political compact with a host state, its enforceable civil-liberties floor — and to assemble the patron coalition required to capitalize the assembly and the first ten years of operation.",
+      "Phase I produces the legal framework, the host-state shortlist, and the first patron consortium.",
+    ],
+    imagePrompt:
+      "A vast aerial view of a planned new district at dawn — clean grids, half-built towers, a long causeway connecting it to the mainland, golden sun on the water. Painterly, optimistic, 1940s Fortune cover style.",
+    accent: "indigo",
+  },
+  {
+    id: "county-fair",
+    no: "GW—16",
+    categories: ["union"],
+    title: "Bring Back the (Serious) County Fair",
+    pitch: "A revival of county fairs as the working institution of American craft and skills transfer.",
+    budget: "$18M",
+    timeline: "8 years",
+    years: 10,
+    scoping: "$250,000",
+    horizon: "Decade",
+    lead: "Folk-arts director + 4-H alumni network — TBD",
+    locale: "First 40 counties — distributed",
+    body: [
+      "The American county fair was, for most of the nineteenth and twentieth centuries, the public institution of skilled craft. Master blacksmiths, dairymen, seamstresses, beekeepers, and breeders showed work to each other in front of the towns they came from, with judges who knew the work and ribbons that meant something. The fair was the most important continuing-education event in rural America.",
+      "What replaced it — a midway, a few tractor pulls, a deep-fried funnel cake — is the husk. The judges are gone, the craft halls are empty, and the transmission line for skilled trades has been allowed to fray to almost nothing.",
+      "We propose a working revival: a national charter that re-establishes serious judging tracks at forty county fairs, a master-apprentice ribbon system tied to apprenticeship credit, restored craft halls, and a small endowment per fair to fund the work.",
+      "Phase I produces the charter, the first ten county partnerships, and the master-judge roster.",
+    ],
+    imagePrompt:
+      "A painted county fairground at dusk: a wooden craft hall lit warm from within, prize ribbons fluttering, a line of carefully built objects on display tables. Painterly, nostalgic but serious, 1940s Fortune cover style.",
+    accent: "indigo",
+  },
+];
+
+// Sync legacy `category` field for any consumer that still reads it.
+window.GW_PROJECTS.forEach((p) => {
+  if (!p.categories) p.categories = p.category ? [p.category] : [];
+  p.category = p.categories[0];
+});
+
+// ─────────────────────────────────────────────────────────────────────────
+// Partners — editable in the admin panel. Each carries an id (stable) and a
+// display name. Logos themselves are dropped onto the matching <image-slot>
+// in the live page, just like project illustrations.
+// ─────────────────────────────────────────────────────────────────────────
+window.GW_PARTNERS = [
+  { id: "p1", name: "Founding Patron I" },
+  { id: "p2", name: "Founding Patron II" },
+  { id: "p3", name: "Founding Patron III" },
+  { id: "p4", name: "Allied Foundation" },
+  { id: "p5", name: "Allied Family Office" },
+  { id: "p6", name: "Allied Trust" },
+];
+
+// Defaults snapshot — used by the admin panel's "Reset to defaults" action.
+window.GW_DEFAULT_PROJECTS = JSON.parse(JSON.stringify(window.GW_PROJECTS));
+window.GW_DEFAULT_CATEGORIES = JSON.parse(JSON.stringify(window.GW_CATEGORIES));
+window.GW_DEFAULT_PARTNERS = JSON.parse(JSON.stringify(window.GW_PARTNERS));
+  </script>
+
+  <!-- image-slot web component (inlined) -->
+  <script>
+/**
+ * <image-slot> — user-fillable image placeholder.
+ *
+ * Drop this into a deck, mockup, or page wherever you want the user to
+ * supply an image. You control the slot's shape and size; the user fills it
+ * by dragging an image file onto it (or clicking to browse). The dropped
+ * image persists across reloads via a .image-slots.state.json sidecar —
+ * same read-via-fetch / write-via-window.omelette pattern as
+ * design_canvas.jsx, so the filled slot shows on share links, downloaded
+ * zips, and PPTX export. Outside the omelette runtime the slot is read-only.
+ *
+ * The host bridge only allows sidecar writes at the project root, so the
+ * HTML that uses this component is assumed to live at the project root too
+ * (same constraint as design_canvas.jsx).
+ *
+ * Attributes:
+ *   id           Persistence key. REQUIRED for the drop to survive reload —
+ *                every slot on the page needs a distinct id.
+ *   shape        'rect' | 'rounded' | 'circle' | 'pill'   (default 'rounded')
+ *                'circle' applies 50% border-radius; on a non-square slot
+ *                that's an ellipse — set equal width and height for a true
+ *                circle.
+ *   radius       Corner radius in px for 'rounded'.       (default 12)
+ *   mask         Any CSS clip-path value. Overrides `shape` — use this for
+ *                hexagons, blobs, arbitrary polygons.
+ *   fit          object-fit: cover | contain | fill.       (default 'cover')
+ *                With cover (the default) double-clicking the filled slot
+ *                enters a reframe mode: the whole image spills past the mask
+ *                (translucent outside, opaque inside), drag to reposition,
+ *                corner-drag to scale. The crop persists alongside the image
+ *                in the sidecar. contain/fill stay static.
+ *   position     object-position for fit=contain|fill.     (default '50% 50%')
+ *   placeholder  Empty-state caption.                      (default 'Drop an image')
+ *   src          Optional initial/fallback image URL. A user drop overrides
+ *                it; clearing the drop reveals src again.
+ *
+ * Size and layout come from ordinary CSS on the element — width/height
+ * inline or from a parent grid — so it composes with any layout.
+ *
+ * Usage:
+ *   <script src="image-slot.js"><\/script>
+ *   <image-slot id="hero"   style="width:800px;height:450px" shape="rounded" radius="20"
+ *               placeholder="Drop a hero image"></image-slot>
+ *   <image-slot id="avatar" style="width:120px;height:120px" shape="circle"></image-slot>
+ *   <image-slot id="kite"   style="width:300px;height:300px"
+ *               mask="polygon(50% 0, 100% 50%, 50% 100%, 0 50%)"></image-slot>
+ */
+
+(() => {
+  const STATE_FILE = '.image-slots.state.json';
+  // 2× a ~600px slot in a 1920-wide deck — retina-sharp without making the
+  // sidecar enormous. A 1200px WebP at q=0.85 is ~150-300KB.
+  const MAX_DIM = 1200;
+  // Raster formats only. SVG is excluded (can carry script; createImageBitmap
+  // on SVG blobs is inconsistent). GIF is excluded because the canvas
+  // re-encode keeps only the first frame, so an animated GIF would silently
+  // go still — better to reject than surprise.
+  const ACCEPT = ['image/png', 'image/jpeg', 'image/webp', 'image/avif'];
+
+  // ── Shared sidecar store ────────────────────────────────────────────────
+  // One fetch + immediate write-on-change for every <image-slot> on the
+  // page. Reads via fetch() so viewing works anywhere the HTML and sidecar
+  // are served together; writes go through window.omelette.writeFile, which
+  // the host allowlists to *.state.json basenames only.
+  const subs = new Set();
+  let slots = {};
+  // ids explicitly cleared before the sidecar fetch resolved — otherwise
+  // the merge below can't tell "never set" from "just deleted" and would
+  // resurrect the sidecar's stale value.
+  const tombstones = new Set();
+  let loaded = false;
+  let loadP = null;
+
+  function load() {
+    if (loadP) return loadP;
+    loadP = fetch(window.__IMAGE_SLOT_STATE_URL || STATE_FILE)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => {
+        // Merge: sidecar loses to any in-memory change that raced ahead of
+        // the fetch (drop or clear) so neither is clobbered by hydration.
+        if (j && typeof j === 'object') {
+          const merged = Object.assign({}, j, slots);
+          // A framing-only write that raced ahead of hydration must not
+          // drop a user image that's only on disk — inherit u from the
+          // sidecar for any in-memory entry that lacks one.
+          for (const k in slots) {
+            if (merged[k] && !merged[k].u && j[k]) {
+              merged[k].u = typeof j[k] === 'string' ? j[k] : j[k].u;
+            }
+          }
+          for (const id of tombstones) delete merged[id];
+          slots = merged;
+        }
+        tombstones.clear();
+      })
+      .catch(() => {})
+      .then(() => { loaded = true; subs.forEach((fn) => fn()); });
+    return loadP;
+  }
+
+  // Serialize writes so two near-simultaneous drops on different slots
+  // can't reorder at the backend and leave the sidecar with only the
+  // first. A save requested mid-flight just marks dirty and re-fires on
+  // completion with the then-current slots.
+  let saving = false;
+  let saveDirty = false;
+  function save() {
+    if (saving) { saveDirty = true; return; }
+    const w = window.omelette && window.omelette.writeFile;
+    if (!w) return;
+    saving = true;
+    Promise.resolve(w(STATE_FILE, JSON.stringify(slots)))
+      .catch(() => {})
+      .then(() => { saving = false; if (saveDirty) { saveDirty = false; save(); } });
+  }
+
+  const S_MAX = 5;
+  const clampS = (s) => Math.max(1, Math.min(S_MAX, s));
+
+  // Normalize a stored slot value. Pre-reframe sidecars stored a bare
+  // data-URL string; newer ones store {u, s, x, y}. Either shape is valid.
+  function getSlot(id) {
+    const v = slots[id];
+    if (!v) return null;
+    return typeof v === 'string' ? { u: v, s: 1, x: 0, y: 0 } : v;
+  }
+
+  function setSlot(id, val) {
+    if (!id) return;
+    if (val) { slots[id] = val; tombstones.delete(id); }
+    else { delete slots[id]; if (!loaded) tombstones.add(id); }
+    subs.forEach((fn) => fn());
+    // A drop is rare + high-value — write immediately so nav-away can't lose
+    // it. Gate on the initial read so we don't overwrite a sidecar we haven't
+    // merged yet; the merge in load() keeps this change once the read lands.
+    if (loaded) save(); else load().then(save);
+  }
+
+  // ── Image downscale ─────────────────────────────────────────────────────
+  // Encode through a canvas so the sidecar carries resized bytes, not the
+  // raw upload. Longest side is capped at 2× the slot's rendered width
+  // (retina) and at MAX_DIM. WebP keeps alpha and is ~10× smaller than PNG
+  // for photos, so there's no need for per-image format picking.
+  async function toDataUrl(file, targetW) {
+    const bitmap = await createImageBitmap(file);
+    try {
+      const cap = Math.min(MAX_DIM, Math.max(1, Math.round(targetW * 2)) || MAX_DIM);
+      const scale = Math.min(1, cap / Math.max(bitmap.width, bitmap.height));
+      const w = Math.max(1, Math.round(bitmap.width * scale));
+      const h = Math.max(1, Math.round(bitmap.height * scale));
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(bitmap, 0, 0, w, h);
+      return canvas.toDataURL('image/webp', 0.85);
+    } finally {
+      bitmap.close && bitmap.close();
+    }
+  }
+
+  // ── Custom element ──────────────────────────────────────────────────────
+  const stylesheet =
+    ':host{display:inline-block;position:relative;vertical-align:top;' +
+    '  font:13px/1.3 system-ui,-apple-system,sans-serif;color:rgba(0,0,0,.55);width:240px;height:160px}' +
+    '.frame{position:absolute;inset:0;overflow:hidden;background:rgba(0,0,0,.04)}' +
+    // .frame img (clipped) and .spill (unclipped ghost + handles) share the
+    // same left/top/width/height in frame-%, computed by _applyView(), so the
+    // inside-mask crop and the outside-mask spill stay pixel-aligned.
+    '.frame img{position:absolute;max-width:none;transform:translate(-50%,-50%);' +
+    '  -webkit-user-drag:none;user-select:none;touch-action:none}' +
+    // Reframe mode (double-click): the full image spills past the mask. The
+    // spill layer is sized to the IMAGE bounds so its corners are where the
+    // resize handles belong. The ghost <img> inside is translucent; the real
+    // clipped <img> underneath shows the opaque in-mask crop.
+    '.spill{position:absolute;transform:translate(-50%,-50%);display:none;z-index:1;' +
+    '  cursor:grab;touch-action:none}' +
+    ':host([data-panning]) .spill{cursor:grabbing}' +
+    '.spill .ghost{position:absolute;inset:0;width:100%;height:100%;opacity:.35;' +
+    '  pointer-events:none;-webkit-user-drag:none;user-select:none;' +
+    '  box-shadow:0 0 0 1px rgba(0,0,0,.2),0 12px 32px rgba(0,0,0,.2)}' +
+    '.spill .handle{position:absolute;width:12px;height:12px;border-radius:50%;' +
+    '  background:#fff;box-shadow:0 0 0 1.5px #c96442,0 1px 3px rgba(0,0,0,.3);' +
+    '  transform:translate(-50%,-50%)}' +
+    '.spill .handle[data-c=nw]{left:0;top:0;cursor:nwse-resize}' +
+    '.spill .handle[data-c=ne]{left:100%;top:0;cursor:nesw-resize}' +
+    '.spill .handle[data-c=sw]{left:0;top:100%;cursor:nesw-resize}' +
+    '.spill .handle[data-c=se]{left:100%;top:100%;cursor:nwse-resize}' +
+    ':host([data-reframe]){z-index:10}' +
+    ':host([data-reframe]) .spill{display:block}' +
+    ':host([data-reframe]) .frame{box-shadow:0 0 0 2px #c96442}' +
+    '.empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;' +
+    '  justify-content:center;gap:6px;text-align:center;padding:12px;box-sizing:border-box;' +
+    '  cursor:pointer;user-select:none}' +
+    '.empty svg{opacity:.45}' +
+    '.empty .cap{max-width:90%;font-weight:500;letter-spacing:.01em}' +
+    '.empty .sub{font-size:11px}' +
+    '.empty .sub u{text-underline-offset:2px;text-decoration-color:rgba(0,0,0,.25)}' +
+    '.empty:hover .sub u{color:rgba(0,0,0,.75);text-decoration-color:currentColor}' +
+    ':host([data-over]) .frame{outline:2px solid #c96442;outline-offset:-2px;' +
+    '  background:rgba(201,100,66,.10)}' +
+    '.ring{position:absolute;inset:0;pointer-events:none;border:1.5px dashed rgba(0,0,0,.25);' +
+    '  transition:border-color .12s}' +
+    ':host([data-over]) .ring{border-color:#c96442}' +
+    ':host([data-filled]) .ring{display:none}' +
+    // Controls sit BELOW the mask (top:100%), absolutely positioned so the
+    // author-declared slot height is unaffected. The gap is padding, not a
+    // top offset, so the hover target stays contiguous with the frame.
+    '.ctl{position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:8px;' +
+    '  display:flex;gap:6px;opacity:0;pointer-events:none;transition:opacity .12s;z-index:2;' +
+    '  white-space:nowrap}' +
+    ':host([data-filled][data-editable]:hover) .ctl,:host([data-reframe]) .ctl' +
+    '  {opacity:1;pointer-events:auto}' +
+    '.ctl button{appearance:none;border:0;border-radius:6px;padding:5px 10px;cursor:pointer;' +
+    '  background:rgba(0,0,0,.65);color:#fff;font:11px/1 system-ui,-apple-system,sans-serif;' +
+    '  backdrop-filter:blur(6px)}' +
+    '.ctl button:hover{background:rgba(0,0,0,.8)}' +
+    '.err{position:absolute;left:8px;bottom:8px;right:8px;color:#b3261e;font-size:11px;' +
+    '  background:rgba(255,255,255,.85);padding:4px 6px;border-radius:5px;pointer-events:none}';
+
+  const icon =
+    '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+    'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' +
+    '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>' +
+    '<path d="m21 15-5-5L5 21"/></svg>';
+
+  class ImageSlot extends HTMLElement {
+    static get observedAttributes() {
+      return ['shape', 'radius', 'mask', 'fit', 'position', 'placeholder', 'src', 'id'];
+    }
+
+    constructor() {
+      super();
+      const root = this.attachShadow({ mode: 'open' });
+      // .spill and .ctl sit OUTSIDE .frame so overflow:hidden + border-radius
+      // on the frame (circle, pill, rounded) can't clip them.
+      root.innerHTML =
+        '<style>' + stylesheet + '</style>' +
+        '<div class="frame" part="frame">' +
+        '  <img part="image" alt="" draggable="false" style="display:none">' +
+        '  <div class="empty" part="empty">' + icon +
+        '    <div class="cap"></div>' +
+        '    <div class="sub">or <u>browse files</u></div></div>' +
+        '  <div class="ring" part="ring"></div>' +
+        '</div>' +
+        '<div class="spill">' +
+        '  <img class="ghost" alt="" draggable="false">' +
+        '  <div class="handle" data-c="nw"></div><div class="handle" data-c="ne"></div>' +
+        '  <div class="handle" data-c="sw"></div><div class="handle" data-c="se"></div>' +
+        '</div>' +
+        '<div class="ctl"><button data-act="replace" title="Replace image">Replace</button>' +
+        '  <button data-act="clear" title="Remove image">Remove</button></div>' +
+        '<input type="file" accept="' + ACCEPT.join(',') + '" hidden>';
+      this._frame = root.querySelector('.frame');
+      this._ring = root.querySelector('.ring');
+      this._img = root.querySelector('.frame img');
+      this._empty = root.querySelector('.empty');
+      this._cap = root.querySelector('.cap');
+      this._sub = root.querySelector('.sub');
+      this._spill = root.querySelector('.spill');
+      this._ghost = root.querySelector('.ghost');
+      this._err = null;
+      this._input = root.querySelector('input');
+      this._depth = 0;
+      this._gen = 0;
+      this._view = { s: 1, x: 0, y: 0 };
+      this._subFn = () => this._render();
+      // Shadow-DOM listeners live with the shadow DOM — bound once here so
+      // disconnect/reconnect (e.g. React remount) doesn't stack handlers.
+      this._empty.addEventListener('click', () => this._input.click());
+      root.addEventListener('click', (e) => {
+        const act = e.target && e.target.getAttribute && e.target.getAttribute('data-act');
+        if (act === 'replace') { this._exitReframe(true); this._input.click(); }
+        if (act === 'clear') {
+          this._exitReframe(false);
+          this._gen++;
+          this._local = null;
+          if (this.id) setSlot(this.id, null); else this._render();
+        }
+      });
+      this._input.addEventListener('change', () => {
+        const f = this._input.files && this._input.files[0];
+        if (f) this._ingest(f);
+        this._input.value = '';
+      });
+      // naturalWidth/Height aren't known until load — re-apply so the cover
+      // baseline is computed from real dimensions, not the 100%×100% fallback.
+      this._img.addEventListener('load', () => this._applyView());
+      // Gated on editable + fit=cover so share links and contain/fill slots
+      // stay static.
+      this.addEventListener('dblclick', (e) => {
+        if (!this.hasAttribute('data-editable') || !this._reframes()) return;
+        e.preventDefault();
+        if (this.hasAttribute('data-reframe')) this._exitReframe(true);
+        else this._enterReframe();
+      });
+      // Pan + resize both originate on the spill layer. A handle pointerdown
+      // drives an aspect-locked resize anchored at the opposite corner; any
+      // other pointerdown on the spill pans. Offsets are frame-% so a
+      // reframed slot survives responsive resize / PPTX export.
+      this._spill.addEventListener('pointerdown', (e) => {
+        if (e.button !== 0 || !this.hasAttribute('data-reframe')) return;
+        e.preventDefault();
+        e.stopPropagation();
+        this._spill.setPointerCapture(e.pointerId);
+        const rect = this.getBoundingClientRect();
+        const fw = rect.width || 1, fh = rect.height || 1;
+        const corner = e.target.getAttribute && e.target.getAttribute('data-c');
+        let move;
+        if (corner) {
+          // Resize about the OPPOSITE corner. Viewport-px throughout (rect
+          // fw/fh, not clientWidth) so the math survives a transform:scale()
+          // ancestor — deck_stage renders slides scaled-to-fit.
+          const iw = this._img.naturalWidth || 1, ih = this._img.naturalHeight || 1;
+          const base = Math.max(fw / iw, fh / ih);
+          const sx = corner.includes('e') ? 1 : -1;
+          const sy = corner.includes('s') ? 1 : -1;
+          const s0 = this._view.s;
+          const w0 = iw * base * s0, h0 = ih * base * s0;
+          const cx0 = (50 + this._view.x) / 100 * fw;
+          const cy0 = (50 + this._view.y) / 100 * fh;
+          const ox = cx0 - sx * w0 / 2, oy = cy0 - sy * h0 / 2;
+          const diag0 = Math.hypot(w0, h0);
+          const ux = sx * w0 / diag0, uy = sy * h0 / diag0;
+          move = (ev) => {
+            const proj = (ev.clientX - rect.left - ox) * ux +
+                         (ev.clientY - rect.top - oy) * uy;
+            const s = clampS(s0 * proj / diag0);
+            const d = diag0 * s / s0;
+            this._view.s = s;
+            this._view.x = (ox + ux * d / 2) / fw * 100 - 50;
+            this._view.y = (oy + uy * d / 2) / fh * 100 - 50;
+            this._clampView();
+            this._applyView();
+          };
+        } else {
+          this.setAttribute('data-panning', '');
+          const start = { px: e.clientX, py: e.clientY, x: this._view.x, y: this._view.y };
+          move = (ev) => {
+            this._view.x = start.x + (ev.clientX - start.px) / fw * 100;
+            this._view.y = start.y + (ev.clientY - start.py) / fh * 100;
+            this._clampView();
+            this._applyView();
+          };
+        }
+        const up = () => {
+          try { this._spill.releasePointerCapture(e.pointerId); } catch {}
+          this._spill.removeEventListener('pointermove', move);
+          this._spill.removeEventListener('pointerup', up);
+          this._spill.removeEventListener('pointercancel', up);
+          this.removeAttribute('data-panning');
+          this._dragUp = null;
+        };
+        // Stashed so _exitReframe (Escape / outside-click mid-drag) can
+        // tear the capture + listeners down synchronously.
+        this._dragUp = up;
+        this._spill.addEventListener('pointermove', move);
+        this._spill.addEventListener('pointerup', up);
+        this._spill.addEventListener('pointercancel', up);
+      });
+      // Wheel zoom stays available inside reframe mode as a trackpad nicety —
+      // zooms toward the cursor (offset' = cursor·(1-k) + offset·k).
+      this.addEventListener('wheel', (e) => {
+        if (!this.hasAttribute('data-reframe')) return;
+        e.preventDefault();
+        const r = this.getBoundingClientRect();
+        const cx = (e.clientX - r.left) / r.width * 100 - 50;
+        const cy = (e.clientY - r.top) / r.height * 100 - 50;
+        const prev = this._view.s;
+        const next = clampS(prev * Math.pow(1.0015, -e.deltaY));
+        if (next === prev) return;
+        const k = next / prev;
+        this._view.s = next;
+        this._view.x = cx * (1 - k) + this._view.x * k;
+        this._view.y = cy * (1 - k) + this._view.y * k;
+        this._clampView();
+        this._applyView();
+      }, { passive: false });
+    }
+
+    connectedCallback() {
+      // Warn once per page — an id-less slot works for the session but
+      // cannot persist, and two id-less slots would share nothing.
+      if (!this.id && !ImageSlot._warned) {
+        ImageSlot._warned = true;
+        console.warn('<image-slot> without an id will not persist its dropped image.');
+      }
+      this.addEventListener('dragenter', this);
+      this.addEventListener('dragover', this);
+      this.addEventListener('dragleave', this);
+      this.addEventListener('drop', this);
+      subs.add(this._subFn);
+      // width%/height% in _applyView encode the frame aspect at call time —
+      // a host resize (responsive grid, pane divider) would stretch the
+      // image until the next _render. Re-render on size change: _render()
+      // re-seeds _view from stored before clamp/apply, so a shrink→grow
+      // cycle round-trips instead of ratcheting x/y toward the narrower
+      // frame's clamp range.
+      this._ro = new ResizeObserver(() => this._render());
+      this._ro.observe(this);
+      load();
+      this._render();
+    }
+
+    disconnectedCallback() {
+      subs.delete(this._subFn);
+      this.removeEventListener('dragenter', this);
+      this.removeEventListener('dragover', this);
+      this.removeEventListener('dragleave', this);
+      this.removeEventListener('drop', this);
+      if (this._ro) { this._ro.disconnect(); this._ro = null; }
+      this._exitReframe(false);
+    }
+
+    _enterReframe() {
+      if (this.hasAttribute('data-reframe')) return;
+      this.setAttribute('data-reframe', '');
+      this._applyView();
+      // Close on click outside (the spill handler stopPropagation()s so
+      // in-image drags don't reach this) and on Escape. Listeners are held
+      // on the instance so _exitReframe / disconnectedCallback can detach
+      // exactly what was attached.
+      this._outside = (e) => {
+        if (e.composedPath && e.composedPath().includes(this)) return;
+        this._exitReframe(true);
+      };
+      this._esc = (e) => { if (e.key === 'Escape') this._exitReframe(true); };
+      document.addEventListener('pointerdown', this._outside, true);
+      document.addEventListener('keydown', this._esc, true);
+    }
+
+    _exitReframe(commit) {
+      if (!this.hasAttribute('data-reframe')) return;
+      if (this._dragUp) this._dragUp();
+      this.removeAttribute('data-reframe');
+      this.removeAttribute('data-panning');
+      if (this._outside) document.removeEventListener('pointerdown', this._outside, true);
+      if (this._esc) document.removeEventListener('keydown', this._esc, true);
+      this._outside = this._esc = null;
+      if (commit) this._commitView();
+    }
+
+    attributeChangedCallback() { if (this.shadowRoot) this._render(); }
+
+    // handleEvent — one listener object for all four drag events keeps the
+    // add/remove symmetric and the depth counter correct.
+    handleEvent(e) {
+      if (e.type === 'dragenter' || e.type === 'dragover') {
+        // Without preventDefault the browser never fires 'drop'.
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy';
+        if (e.type === 'dragenter') this._depth++;
+        this.setAttribute('data-over', '');
+      } else if (e.type === 'dragleave') {
+        // dragenter/leave fire for every descendant crossing — count depth
+        // so hovering the icon inside the empty state doesn't flicker.
+        if (--this._depth <= 0) { this._depth = 0; this.removeAttribute('data-over'); }
+      } else if (e.type === 'drop') {
+        e.preventDefault();
+        e.stopPropagation();
+        this._depth = 0;
+        this.removeAttribute('data-over');
+        const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+        if (f) this._ingest(f);
+      }
+    }
+
+    async _ingest(file) {
+      this._setError(null);
+      if (!file || ACCEPT.indexOf(file.type) < 0) {
+        this._setError('Drop a PNG, JPEG, WebP, or AVIF image.');
+        return;
+      }
+      // toDataUrl can take hundreds of ms on a large photo. A Clear or a
+      // newer drop during that window would be clobbered when this await
+      // resumes — bump + capture a generation so stale encodes bail.
+      const gen = ++this._gen;
+      try {
+        const w = this.clientWidth || this.offsetWidth || MAX_DIM;
+        const url = await toDataUrl(file, w);
+        if (gen !== this._gen) return;
+        // Only exit reframe once the new image is in hand — a rejected type
+        // or decode failure leaves the in-progress crop untouched.
+        this._exitReframe(false);
+        const val = { u: url, s: 1, x: 0, y: 0 };
+        setSlot(this.id || '', val);
+        // Keep a session-local copy for id-less slots so the drop still
+        // shows, even though it cannot persist.
+        if (!this.id) { this._local = val; this._render(); }
+      } catch (err) {
+        if (gen !== this._gen) return;
+        this._setError('Could not read that image.');
+        console.warn('<image-slot> ingest failed:', err);
+      }
+    }
+
+    _setError(msg) {
+      if (this._err) { this._err.remove(); this._err = null; }
+      if (!msg) return;
+      const d = document.createElement('div');
+      d.className = 'err'; d.textContent = msg;
+      this.shadowRoot.appendChild(d);
+      this._err = d;
+      setTimeout(() => { if (this._err === d) { d.remove(); this._err = null; } }, 3000);
+    }
+
+    // Reframing (pan/resize) is only meaningful for fit=cover — contain/fill
+    // keep the old object-fit path and double-click is a no-op.
+    _reframes() {
+      return this.hasAttribute('data-filled') &&
+        (this.getAttribute('fit') || 'cover') === 'cover';
+    }
+
+    // Cover-baseline geometry, shared by clamp/apply/resize. Null until the
+    // img has loaded (naturalWidth is 0 before that) or when the slot has no
+    // layout box — ResizeObserver fires with a 0×0 rect under display:none,
+    // and clamping against a degenerate 1×1 frame would silently pull the
+    // stored pan toward zero.
+    _geom() {
+      const iw = this._img.naturalWidth, ih = this._img.naturalHeight;
+      const fw = this.clientWidth, fh = this.clientHeight;
+      if (!iw || !ih || !fw || !fh) return null;
+      return { iw, ih, fw, fh, base: Math.max(fw / iw, fh / ih) };
+    }
+
+    _clampView() {
+      // Pan range on each axis is half the overflow past the frame edge.
+      const g = this._geom();
+      if (!g) return;
+      const mx = Math.max(0, (g.iw * g.base * this._view.s / g.fw - 1) * 50);
+      const my = Math.max(0, (g.ih * g.base * this._view.s / g.fh - 1) * 50);
+      this._view.x = Math.max(-mx, Math.min(mx, this._view.x));
+      this._view.y = Math.max(-my, Math.min(my, this._view.y));
+    }
+
+    _applyView() {
+      const g = this._geom();
+      const fit = this.getAttribute('fit') || 'cover';
+      if (fit !== 'cover' || !g) {
+        // Non-cover, or dimensions not known yet (before img load).
+        this._img.style.width = '100%';
+        this._img.style.height = '100%';
+        this._img.style.left = '50%';
+        this._img.style.top = '50%';
+        this._img.style.objectFit = fit;
+        this._img.style.objectPosition = this.getAttribute('position') || '50% 50%';
+        return;
+      }
+      // Cover baseline: img fills the frame on its tighter axis at s=1, so
+      // pan works immediately on the overflowing axis without zooming first.
+      // Width/height and left/top are all frame-% — depends only on the
+      // frame aspect ratio, so a responsive resize keeps the same crop. The
+      // spill layer mirrors the same box so its corners = image corners.
+      const k = g.base * this._view.s;
+      const w = (g.iw * k / g.fw * 100) + '%';
+      const h = (g.ih * k / g.fh * 100) + '%';
+      const l = (50 + this._view.x) + '%';
+      const t = (50 + this._view.y) + '%';
+      this._img.style.width = w; this._img.style.height = h;
+      this._img.style.left = l; this._img.style.top = t;
+      this._img.style.objectFit = '';
+      this._spill.style.width = w; this._spill.style.height = h;
+      this._spill.style.left = l; this._spill.style.top = t;
+    }
+
+    _commitView() {
+      const v = { s: this._view.s, x: this._view.x, y: this._view.y };
+      if (this._userUrl) v.u = this._userUrl;
+      // Framing-only (no u) persists too so an author-src slot remembers its
+      // crop; clearing the sidecar still falls through to src=.
+      if (this.id) setSlot(this.id, v);
+      else { this._local = v; }
+    }
+
+    _render() {
+      // Shape / mask. Presets use border-radius so the dashed ring can
+      // follow the rounded outline; clip-path is only applied for an
+      // explicit `mask` (the ring is hidden there since a rectangle
+      // dashed border chopped by an arbitrary polygon looks broken).
+      const mask = this.getAttribute('mask');
+      const shape = (this.getAttribute('shape') || 'rounded').toLowerCase();
+      let radius = '';
+      if (shape === 'circle') radius = '50%';
+      else if (shape === 'pill') radius = '9999px';
+      else if (shape === 'rounded') {
+        const n = parseFloat(this.getAttribute('radius'));
+        radius = (Number.isFinite(n) ? n : 12) + 'px';
+      }
+      this._frame.style.borderRadius = mask ? '' : radius;
+      this._frame.style.clipPath = mask || '';
+      this._ring.style.borderRadius = mask ? '' : radius;
+      this._ring.style.display = mask ? 'none' : '';
+
+      // Controls and reframe entry gate on this so share links stay read-only.
+      const editable = !!(window.omelette && window.omelette.writeFile);
+      this.toggleAttribute('data-editable', editable);
+      this._sub.style.display = editable ? '' : 'none';
+
+      // Content. The sidecar is also writable by the agent's write_file
+      // tool, so its value isn't guaranteed canvas-originated — only accept
+      // data:image/ URLs from it. The `src` attribute is author-controlled
+      // (Claude wrote it into the HTML) so it passes through unchanged.
+      let stored = this.id ? getSlot(this.id) : this._local;
+      if (stored && stored.u && !/^data:image\//i.test(stored.u)) stored = null;
+      const srcAttr = this.getAttribute('src') || '';
+      this._userUrl = (stored && stored.u) || null;
+      const url = this._userUrl || srcAttr;
+      // Don't clobber an in-flight reframe with a store-triggered re-render.
+      if (!this.hasAttribute('data-reframe')) {
+        this._view = {
+          s: stored && Number.isFinite(stored.s) ? clampS(stored.s) : 1,
+          x: stored && Number.isFinite(stored.x) ? stored.x : 0,
+          y: stored && Number.isFinite(stored.y) ? stored.y : 0,
+        };
+      }
+      this._cap.textContent = this.getAttribute('placeholder') || 'Drop an image';
+      // Toggle via style.display — the [hidden] attribute alone loses to
+      // the display:flex / display:block rules in the stylesheet above.
+      if (url) {
+        if (this._img.getAttribute('src') !== url) {
+          this._img.src = url;
+          this._ghost.src = url;
+        }
+        this._img.style.display = 'block';
+        this._empty.style.display = 'none';
+        this.setAttribute('data-filled', '');
+        this._clampView();
+        this._applyView();
+      } else {
+        this._img.style.display = 'none';
+        this._img.removeAttribute('src');
+        this._ghost.removeAttribute('src');
+        this._empty.style.display = 'flex';
+        this.removeAttribute('data-filled');
+      }
+    }
+  }
+
+  if (!customElements.get('image-slot')) {
+    customElements.define('image-slot', ImageSlot);
+  }
+})();
+  </script>
+
+  <!-- React + Babel (CDN) -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+
+  <!-- Tweaks panel (inlined) -->
+  <script type="text/babel">
+
+// tweaks-panel.jsx
+// Reusable Tweaks shell + form-control helpers.
+//
+// Owns the host protocol (listens for __activate_edit_mode / __deactivate_edit_mode,
+// posts __edit_mode_available / __edit_mode_set_keys / __edit_mode_dismissed) so
+// individual prototypes don't re-roll it. Ships a consistent set of controls so you
+// don't hand-draw <input type="range">, segmented radios, steppers, etc.
+//
+// Usage (in an HTML file that loads React + Babel):
+//
+//   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+//     "primaryColor": "#D97757",
+//     "palette": ["#D97757", "#29261b", "#f6f4ef"],
+//     "fontSize": 16,
+//     "density": "regular",
+//     "dark": false
+//   }/*EDITMODE-END*/;
+//
+//   function App() {
+//     const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+//     return (
+//       <div style={{ fontSize: t.fontSize, color: t.primaryColor }}>
+//         Hello
+//         <TweaksPanel>
+//           <TweakSection label="Typography" />
+//           <TweakSlider label="Font size" value={t.fontSize} min={10} max={32} unit="px"
+//                        onChange={(v) => setTweak('fontSize', v)} />
+//           <TweakRadio  label="Density" value={t.density}
+//                        options={['compact', 'regular', 'comfy']}
+//                        onChange={(v) => setTweak('density', v)} />
+//           <TweakSection label="Theme" />
+//           <TweakColor  label="Primary" value={t.primaryColor}
+//                        options={['#D97757', '#2A6FDB', '#1F8A5B', '#7A5AE0']}
+//                        onChange={(v) => setTweak('primaryColor', v)} />
+//           <TweakColor  label="Palette" value={t.palette}
+//                        options={[['#D97757', '#29261b', '#f6f4ef'],
+//                                  ['#475569', '#0f172a', '#f1f5f9']]}
+//                        onChange={(v) => setTweak('palette', v)} />
+//           <TweakToggle label="Dark mode" value={t.dark}
+//                        onChange={(v) => setTweak('dark', v)} />
+//         </TweaksPanel>
+//       </div>
+//     );
+//   }
+//
+// ─────────────────────────────────────────────────────────────────────────────
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    transform:scale(var(--dc-inv-zoom,1));transform-origin:bottom right;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+
+  .twk-field{appearance:none;box-sizing:border-box;width:100%;min-width:0;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;
+    overflow-wrap:anywhere}
+
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+
+  .twk-num{display:flex;align-items:center;box-sizing:border-box;min-width:0;height:26px;padding:0 0 0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
+  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;
+    user-select:none;padding-right:8px}
+  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
+    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
+    outline:none;color:inherit;-moz-appearance:textfield}
+  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{
+    -webkit-appearance:none;margin:0}
+  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
+
+  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
+    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
+  .twk-btn:hover{background:rgba(0,0,0,.88)}
+  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
+  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
+
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+
+  .twk-chips{display:flex;gap:6px}
+  .twk-chip{position:relative;appearance:none;flex:1;min-width:0;height:46px;
+    padding:0;border:0;border-radius:6px;overflow:hidden;cursor:default;
+    box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);
+    transition:transform .12s cubic-bezier(.3,.7,.4,1),box-shadow .12s}
+  .twk-chip:hover{transform:translateY(-1px);
+    box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.12)}
+  .twk-chip[data-on="1"]{box-shadow:0 0 0 1.5px rgba(0,0,0,.85),
+    0 2px 6px rgba(0,0,0,.15)}
+  .twk-chip>span{position:absolute;top:0;bottom:0;right:0;width:34%;
+    display:flex;flex-direction:column;box-shadow:-1px 0 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i{flex:1;box-shadow:0 -1px 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i:first-child{box-shadow:none}
+  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+`;
+
+// ── useTweaks ───────────────────────────────────────────────────────────────
+// Single source of truth for tweak values. setTweak persists via the host
+// (__edit_mode_set_keys → host rewrites the EDITMODE block on disk).
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  // Accepts either setTweak('key', value) or setTweak({ key: value, ... }) so a
+  // useState-style call doesn't write a "[object Object]" key into the persisted
+  // JSON block.
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
+      ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+    // Same-window signal so in-page listeners (deck-stage rail thumbnails)
+    // can react — the parent message only reaches the host, not peers.
+    window.dispatchEvent(new CustomEvent('tweakchange', { detail: edits }));
+  }, []);
+  return [values, setTweak];
+}
+
+// ── TweaksPanel ─────────────────────────────────────────────────────────────
+// Floating shell. Registers the protocol listener BEFORE announcing
+// availability — if the announce ran first, the host's activate could land
+// before our handler exists and the toolbar toggle would silently no-op.
+// The close button posts __edit_mode_dismissed so the host's toolbar toggle
+// flips off in lockstep; the host echoes __deactivate_edit_mode back which
+// is what actually hides the panel.
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', clampToViewport);
+      return () => window.removeEventListener('resize', clampToViewport);
+    }
+    const ro = new ResizeObserver(clampToViewport);
+    ro.observe(document.documentElement);
+    return () => ro.disconnect();
+  }, [open, clampToViewport]);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  };
+
+  const onDragStart = (e) => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = {
+        x: startRight - (ev.clientX - sx),
+        y: startBottom - (ev.clientY - sy),
+      };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" data-omelette-chrome=""
+           style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">
+          {children}
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ── Layout helpers ──────────────────────────────────────────────────────────
+
+function TweakSection({ label, children }) {
+  return (
+    <>
+      <div className="twk-sect">{label}</div>
+      {children}
+    </>
+  );
+}
+
+function TweakRow({ label, value, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl">
+        <span>{label}</span>
+        {value != null && <span className="twk-val">{value}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+// ── Controls ────────────────────────────────────────────────────────────────
+
+function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+  return (
+    <TweakRow label={label} value={`${value}${unit}`}>
+      <input type="range" className="twk-slider" min={min} max={max} step={step}
+             value={value} onChange={(e) => onChange(Number(e.target.value))} />
+    </TweakRow>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+              role="switch" aria-checked={!!value}
+              onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakRadio({ label, value, options, onChange }) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  // The active value is read by pointer-move handlers attached for the lifetime
+  // of a drag — ref it so a stale closure doesn't fire onChange for every move.
+  const valueRef = React.useRef(value);
+  valueRef.current = value;
+
+  // Segments wrap mid-word once per-segment width runs out. The track is
+  // ~248px (280 panel − 28 body pad − 4 seg pad), each button loses 12px
+  // to its own padding, and 11.5px system-ui averages ~6.3px/char — so 2
+  // options fit ~16 chars each, 3 fit ~10. Past that (or >3 options), fall
+  // back to a dropdown rather than wrap.
+  const labelLen = (o) => String(typeof o === 'object' ? o.label : o).length;
+  const maxLen = options.reduce((m, o) => Math.max(m, labelLen(o)), 0);
+  const fitsAsSegments = maxLen <= ({ 2: 16, 3: 10 }[options.length] ?? 0);
+  if (!fitsAsSegments) {
+    // <select> emits strings — map back to the original option value so the
+    // fallback stays type-preserving (numbers, booleans) like the segment path.
+    const resolve = (s) => {
+      const m = options.find((o) => String(typeof o === 'object' ? o.value : o) === s);
+      return m === undefined ? s : typeof m === 'object' ? m.value : m;
+    };
+    return <TweakSelect label={label} value={value} options={options}
+                        onChange={(s) => onChange(resolve(s))} />;
+  }
+  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+
+  const segAt = (clientX) => {
+    const r = trackRef.current.getBoundingClientRect();
+    const inner = r.width - 4;
+    const i = Math.floor(((clientX - r.left - 2) / inner) * n);
+    return opts[Math.max(0, Math.min(n - 1, i))].value;
+  };
+
+  const onPointerDown = (e) => {
+    setDragging(true);
+    const v0 = segAt(e.clientX);
+    if (v0 !== valueRef.current) onChange(v0);
+    const move = (ev) => {
+      if (!trackRef.current) return;
+      const v = segAt(ev.clientX);
+      if (v !== valueRef.current) onChange(v);
+    };
+    const up = () => {
+      setDragging(false);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+
+  return (
+    <TweakRow label={label}>
+      <div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown}
+           className={dragging ? 'twk-seg dragging' : 'twk-seg'}>
+        <div className="twk-seg-thumb"
+             style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+                      width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map((o) => (
+          <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>
+            {o.label}
+          </button>
+        ))}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakSelect({ label, value, options, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((o) => {
+          const v = typeof o === 'object' ? o.value : o;
+          const l = typeof o === 'object' ? o.label : o;
+          return <option key={v} value={v}>{l}</option>;
+        })}
+      </select>
+    </TweakRow>
+  );
+}
+
+function TweakText({ label, value, placeholder, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <input className="twk-field" type="text" value={value} placeholder={placeholder}
+             onChange={(e) => onChange(e.target.value)} />
+    </TweakRow>
+  );
+}
+
+function TweakNumber({ label, value, min, max, step = 1, unit = '', onChange }) {
+  const clamp = (n) => {
+    if (min != null && n < min) return min;
+    if (max != null && n > max) return max;
+    return n;
+  };
+  const startRef = React.useRef({ x: 0, val: 0 });
+  const onScrubStart = (e) => {
+    e.preventDefault();
+    startRef.current = { x: e.clientX, val: value };
+    const decimals = (String(step).split('.')[1] || '').length;
+    const move = (ev) => {
+      const dx = ev.clientX - startRef.current.x;
+      const raw = startRef.current.val + dx * step;
+      const snapped = Math.round(raw / step) * step;
+      onChange(clamp(Number(snapped.toFixed(decimals))));
+    };
+    const up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  return (
+    <div className="twk-num">
+      <span className="twk-num-lbl" onPointerDown={onScrubStart}>{label}</span>
+      <input type="number" value={value} min={min} max={max} step={step}
+             onChange={(e) => onChange(clamp(Number(e.target.value)))} />
+      {unit && <span className="twk-num-unit">{unit}</span>}
+    </div>
+  );
+}
+
+// Relative-luminance contrast pick — checkmarks drawn over a swatch need to
+// read on both #111 and #fafafa without per-option configuration. Hex input
+// only (#rgb / #rrggbb); named or rgb()/hsl() colors fall through to "light".
+function __twkIsLight(hex) {
+  const h = String(hex).replace('#', '');
+  const x = h.length === 3 ? h.replace(/./g, (c) => c + c) : h.padEnd(6, '0');
+  const n = parseInt(x.slice(0, 6), 16);
+  if (Number.isNaN(n)) return true;
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  return r * 299 + g * 587 + b * 114 > 148000;
+}
+
+const __TwkCheck = ({ light }) => (
+  <svg viewBox="0 0 14 14" aria-hidden="true">
+    <path d="M3 7.2 5.8 10 11 4.2" fill="none" strokeWidth="2.2"
+          strokeLinecap="round" strokeLinejoin="round"
+          stroke={light ? 'rgba(0,0,0,.78)' : '#fff'} />
+  </svg>
+);
+
+// TweakColor — curated color/palette picker. Each option is either a single
+// hex string or an array of 1-5 hex strings; the card adapts — a lone color
+// renders solid, a palette renders colors[0] as the hero (left ~2/3) with the
+// rest stacked in a sharp column on the right. onChange emits the
+// option in the shape it was passed (string stays string, array stays array).
+// Without options it falls back to the native color input for back-compat.
+function TweakColor({ label, value, options, onChange }) {
+  if (!options || !options.length) {
+    return (
+      <div className="twk-row twk-row-h">
+        <div className="twk-lbl"><span>{label}</span></div>
+        <input type="color" className="twk-swatch" value={value}
+               onChange={(e) => onChange(e.target.value)} />
+      </div>
+    );
+  }
+  // Native <input type=color> emits lowercase hex per the HTML spec, so
+  // compare case-insensitively. String() guards JSON.stringify(undefined),
+  // which returns the primitive undefined (no .toLowerCase).
+  const key = (o) => String(JSON.stringify(o)).toLowerCase();
+  const cur = key(value);
+  return (
+    <TweakRow label={label}>
+      <div className="twk-chips" role="radiogroup">
+        {options.map((o, i) => {
+          const colors = Array.isArray(o) ? o : [o];
+          const [hero, ...rest] = colors;
+          const sup = rest.slice(0, 4);
+          const on = key(o) === cur;
+          return (
+            <button key={i} type="button" className="twk-chip" role="radio"
+                    aria-checked={on} data-on={on ? '1' : '0'}
+                    aria-label={colors.join(', ')} title={colors.join(' · ')}
+                    style={{ background: hero }}
+                    onClick={() => onChange(o)}>
+              {sup.length > 0 && (
+                <span>
+                  {sup.map((c, j) => <i key={j} style={{ background: c }} />)}
+                </span>
+              )}
+              {on && <__TwkCheck light={__twkIsLight(hero)} />}
+            </button>
+          );
+        })}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakButton({ label, onClick, secondary = false }) {
+  return (
+    <button type="button" className={secondary ? 'twk-btn secondary' : 'twk-btn'}
+            onClick={onClick}>{label}</button>
+  );
+}
+
+Object.assign(window, {
+  useTweaks, TweaksPanel, TweakSection, TweakRow,
+  TweakSlider, TweakToggle, TweakRadio, TweakSelect,
+  TweakText, TweakNumber, TweakColor, TweakButton,
+});
+  </script>
+
+  <!-- Admin panel (inlined) -->
+  <script type="text/babel">
+/* Great Works Studio — The Pantheon
+   Admin panel: edit project tiles + partner roster without touching code.
+   Persists edits to localStorage; on load, app merges them with the defaults.
+*/
+
+const LS_PROJECTS_KEY = "gw_menu_projects_v1";
+const LS_PARTNERS_KEY = "gw_menu_partners_v1";
+
+// ── Projects ─────────────────────────────────────────────────────────────
+window.GW_loadProjects = function () {
+  try {
+    const raw = localStorage.getItem(LS_PROJECTS_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return null;
+    // Back-compat: legacy single-cat data → categories array.
+    parsed.forEach((p) => {
+      if (!Array.isArray(p.categories)) {
+        p.categories = p.category ? [p.category] : [];
+      }
+      p.category = p.categories[0];
+    });
+    return parsed;
+  } catch (e) {
+    return null;
+  }
+};
+window.GW_saveProjects = function (projects) {
+  localStorage.setItem(LS_PROJECTS_KEY, JSON.stringify(projects));
+};
+window.GW_clearProjects = function () {
+  localStorage.removeItem(LS_PROJECTS_KEY);
+};
+
+// ── Partners ─────────────────────────────────────────────────────────────
+window.GW_loadPartners = function () {
+  try {
+    const raw = localStorage.getItem(LS_PARTNERS_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return null;
+    return parsed;
+  } catch (e) {
+    return null;
+  }
+};
+window.GW_savePartners = function (partners) {
+  localStorage.setItem(LS_PARTNERS_KEY, JSON.stringify(partners));
+};
+window.GW_clearPartners = function () {
+  localStorage.removeItem(LS_PARTNERS_KEY);
+};
+
+function nextProjectNo(projects) {
+  let max = 0;
+  for (const p of projects) {
+    const m = (p.no || "").match(/(\d+)/);
+    if (m) max = Math.max(max, parseInt(m[1], 10));
+  }
+  return "GW—" + (max + 1).toString().padStart(2, "0");
+}
+
+function blankProject(projects) {
+  const cats = Object.keys(window.GW_CATEGORIES);
+  return {
+    id: "new-" + Date.now(),
+    no: nextProjectNo(projects),
+    categories: [cats[0]],
+    category: cats[0],
+    title: "Untitled Great Work",
+    pitch: "A one-sentence promise of what this work, once done, becomes in the world.",
+    budget: "$1M",
+    timeline: "5 years",
+    years: 5,
+    scoping: "$100,000",
+    horizon: "Half-decade",
+    lead: "Lead to be recruited",
+    locale: "TBD",
+    body: [
+      "First paragraph — the problem, stated plainly. Why the world does not solve this already.",
+      "Second paragraph — the proposal. What we would build, how, with whom.",
+      "Phase I scopes the charter, the team, and the implementation plan.",
+    ],
+    imagePrompt: "Painterly editorial cover illustration in the style of 1940s Fortune Magazine.",
+    accent: "purple",
+  };
+}
+
+function blankPartner(partners) {
+  return {
+    id: "p" + Date.now(),
+    name: "New Partner",
+  };
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Admin Panel
+// ─────────────────────────────────────────────────────────────────────────
+
+function AdminPanel({ projects, onApply, partners, onApplyPartners, onClose }) {
+  const [projectDraft, setProjectDraft] = React.useState(() =>
+    JSON.parse(JSON.stringify(projects))
+  );
+  const [partnerDraft, setPartnerDraft] = React.useState(() =>
+    JSON.parse(JSON.stringify(partners))
+  );
+  // Selection: { type: 'project'|'partner', id }
+  const [selection, setSelection] = React.useState(() =>
+    projectDraft[0]
+      ? { type: "project", id: projectDraft[0].id }
+      : { type: "none" }
+  );
+  const [toast, setToast] = React.useState(null);
+
+  useEscape(onClose);
+
+  const cats = Object.values(window.GW_CATEGORIES);
+
+  const selectedProject =
+    selection.type === "project"
+      ? projectDraft.find((p) => p.id === selection.id)
+      : null;
+  const selectedPartner =
+    selection.type === "partner"
+      ? partnerDraft.find((p) => p.id === selection.id)
+      : null;
+
+  // ── Project mutators ───────────────────────────────────────────────────
+  function updateProjectField(field, value) {
+    setProjectDraft((d) =>
+      d.map((p) => {
+        if (p.id !== selection.id) return p;
+        const next = { ...p, [field]: value };
+        // Keep legacy `category` in sync with primary of `categories`.
+        if (field === "categories") {
+          next.category = (value && value[0]) || "";
+        }
+        return next;
+      })
+    );
+  }
+  function toggleCategory(catId) {
+    if (!selectedProject) return;
+    const current = Array.isArray(selectedProject.categories)
+      ? selectedProject.categories
+      : [];
+    let next;
+    if (current.includes(catId)) {
+      // Don't allow removing the last category.
+      if (current.length === 1) return;
+      next = current.filter((c) => c !== catId);
+    } else {
+      next = [...current, catId];
+    }
+    updateProjectField("categories", next);
+  }
+  function updateBodyText(text) {
+    const paras = text.split(/\n\s*\n/).map((s) => s.trim()).filter(Boolean);
+    updateProjectField("body", paras);
+  }
+  function addProject() {
+    const fresh = blankProject(projectDraft);
+    setProjectDraft((d) => [...d, fresh]);
+    setSelection({ type: "project", id: fresh.id });
+  }
+  function deleteProject(id) {
+    setProjectDraft((d) => {
+      const next = d.filter((p) => p.id !== id);
+      if (selection.type === "project" && selection.id === id) {
+        setSelection(
+          next[0]
+            ? { type: "project", id: next[0].id }
+            : { type: "none" }
+        );
+      }
+      return next;
+    });
+  }
+
+  // ── Partner mutators ───────────────────────────────────────────────────
+  function updatePartnerField(field, value) {
+    setPartnerDraft((d) =>
+      d.map((p) => (p.id === selection.id ? { ...p, [field]: value } : p))
+    );
+  }
+  function addPartner() {
+    const fresh = blankPartner(partnerDraft);
+    setPartnerDraft((d) => [...d, fresh]);
+    setSelection({ type: "partner", id: fresh.id });
+  }
+  function deletePartner(id) {
+    setPartnerDraft((d) => {
+      const next = d.filter((p) => p.id !== id);
+      if (selection.type === "partner" && selection.id === id) {
+        setSelection(
+          next[0]
+            ? { type: "partner", id: next[0].id }
+            : projectDraft[0]
+            ? { type: "project", id: projectDraft[0].id }
+            : { type: "none" }
+        );
+      }
+      return next;
+    });
+  }
+  function movePartner(id, dir) {
+    setPartnerDraft((d) => {
+      const idx = d.findIndex((p) => p.id === id);
+      if (idx < 0) return d;
+      const target = idx + dir;
+      if (target < 0 || target >= d.length) return d;
+      const next = [...d];
+      const [item] = next.splice(idx, 1);
+      next.splice(target, 0, item);
+      return next;
+    });
+  }
+
+  // ── Save / reset / import / export ─────────────────────────────────────
+  function applyChanges() {
+    window.GW_saveProjects(projectDraft);
+    window.GW_savePartners(partnerDraft);
+    onApply(projectDraft);
+    onApplyPartners(partnerDraft);
+    setToast("Saved");
+    setTimeout(() => setToast(null), 1600);
+  }
+
+  function resetToDefaults() {
+    if (!confirm("Reset every project and partner back to the studio defaults? Your edits will be lost.")) return;
+    window.GW_clearProjects();
+    window.GW_clearPartners();
+    const defaultsP = JSON.parse(JSON.stringify(window.GW_DEFAULT_PROJECTS));
+    const defaultsT = JSON.parse(JSON.stringify(window.GW_DEFAULT_PARTNERS));
+    setProjectDraft(defaultsP);
+    setPartnerDraft(defaultsT);
+    setSelection(
+      defaultsP[0] ? { type: "project", id: defaultsP[0].id } : { type: "none" }
+    );
+    onApply(defaultsP);
+    onApplyPartners(defaultsT);
+    setToast("Reset to defaults");
+    setTimeout(() => setToast(null), 1600);
+  }
+
+  function exportJSON() {
+    const payload = { projects: projectDraft, partners: partnerDraft };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "great-works-pantheon.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function importJSON(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const parsed = JSON.parse(e.target.result);
+        // Accept either a bare project array (legacy) or {projects, partners}.
+        let nextProjects, nextPartners;
+        if (Array.isArray(parsed)) {
+          nextProjects = parsed;
+          nextPartners = partnerDraft;
+        } else if (parsed && typeof parsed === "object") {
+          nextProjects = parsed.projects || projectDraft;
+          nextPartners = parsed.partners || partnerDraft;
+        } else {
+          throw new Error("Unrecognized shape");
+        }
+        nextProjects.forEach((p) => {
+          if (!Array.isArray(p.categories)) {
+            p.categories = p.category ? [p.category] : [];
+          }
+          p.category = p.categories[0];
+        });
+        setProjectDraft(nextProjects);
+        setPartnerDraft(nextPartners);
+        setSelection(
+          nextProjects[0]
+            ? { type: "project", id: nextProjects[0].id }
+            : { type: "none" }
+        );
+        setToast("Imported · review and Save");
+        setTimeout(() => setToast(null), 1800);
+      } catch (err) {
+        alert("Could not import that file: " + err.message);
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  // ── Render ─────────────────────────────────────────────────────────────
+  return (
+    <div className="admin-shell" data-screen-label="Admin · Pantheon Editor">
+      <div className="admin-topbar">
+        <div>
+          <div className="admin-topbar-eyebrow">Studio · Editor</div>
+          <div className="admin-topbar-title">The Pantheon — Edit Mode</div>
+        </div>
+        <div className="admin-topbar-spacer"></div>
+        <button className="admin-btn" onClick={exportJSON}>Export JSON</button>
+        <label className="admin-btn" style={{ cursor: "pointer" }}>
+          Import JSON
+          <input
+            type="file"
+            accept="application/json"
+            style={{ display: "none" }}
+            onChange={(e) => e.target.files[0] && importJSON(e.target.files[0])}
+          />
+        </label>
+        <button className="admin-btn is-danger" onClick={resetToDefaults}>
+          Reset to defaults
+        </button>
+        <button className="admin-btn is-primary" onClick={applyChanges}>
+          ✓ Save changes
+        </button>
+        <button className="admin-btn" onClick={onClose}>Close</button>
+      </div>
+
+      <div className="admin-body">
+        <aside className="admin-list">
+          {/* Partners section */}
+          <div className="admin-list-section">
+            <div className="admin-list-head">
+              <span className="admin-list-head-label">
+                Partners · {partnerDraft.length}
+              </span>
+              <button className="admin-add" onClick={addPartner}>＋ Add partner</button>
+            </div>
+            {partnerDraft.map((p) => (
+              <button
+                key={p.id}
+                className={clsx(
+                  "admin-row admin-row-sm",
+                  selection.type === "partner" && selection.id === p.id && "is-active"
+                )}
+                onClick={() => setSelection({ type: "partner", id: p.id })}
+              >
+                <span className="admin-row-title">{p.name || "Untitled"}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Projects section */}
+          <div className="admin-list-section">
+            <div className="admin-list-head">
+              <span className="admin-list-head-label">
+                Works · {projectDraft.length}
+              </span>
+              <button className="admin-add" onClick={addProject}>＋ Add work</button>
+            </div>
+            {projectDraft.map((p) => {
+              const primaryId = categoriesFor(p)[0];
+              const cat = primaryId ? window.GW_CATEGORIES[primaryId] : null;
+              const tagLabels = categoriesFor(p)
+                .map((id) => window.GW_CATEGORIES[id]?.label)
+                .filter(Boolean)
+                .join(" · ");
+              return (
+                <button
+                  key={p.id}
+                  className={clsx(
+                    "admin-row",
+                    selection.type === "project" && selection.id === p.id && "is-active"
+                  )}
+                  onClick={() => setSelection({ type: "project", id: p.id })}
+                  style={{ "--row-color": cat ? cat.color : "var(--muted)" }}
+                >
+                  <span className="admin-row-no">
+                    {p.no} · {tagLabels || "—"}
+                  </span>
+                  <span className="admin-row-title">{p.title || "Untitled"}</span>
+                  <span className="admin-row-meta">
+                    {p.scoping} seed · {p.budget} full
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </aside>
+
+        <main className="admin-editor">
+          {selection.type === "none" && (
+            <div className="admin-editor-empty">
+              Add a new work or partner, or select one from the list.
+            </div>
+          )}
+
+          {/* PROJECT EDITOR */}
+          {selectedProject && (
+            <>
+              <div className="admin-editor-head">
+                <h3>{selectedProject.title || "Untitled"}</h3>
+                <button
+                  className="admin-btn is-danger"
+                  onClick={() => {
+                    if (confirm("Delete this work from the Pantheon?")) {
+                      deleteProject(selectedProject.id);
+                    }
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+
+              <div className="admin-section">
+                <div className="admin-section-label">▼ Identity</div>
+                <div className="admin-field-row">
+                  <label className="admin-field">
+                    <span className="admin-field-label">Catalog no.</span>
+                    <input
+                      type="text"
+                      value={selectedProject.no}
+                      onChange={(e) => updateProjectField("no", e.target.value)}
+                    />
+                  </label>
+                  <label className="admin-field">
+                    <span className="admin-field-label">Accent</span>
+                    <select
+                      value={selectedProject.accent || "purple"}
+                      onChange={(e) => updateProjectField("accent", e.target.value)}
+                    >
+                      <option value="green">Green</option>
+                      <option value="red">Red</option>
+                      <option value="blue">Blue</option>
+                      <option value="purple">Purple</option>
+                      <option value="indigo">Indigo</option>
+                      <option value="bronze">Bronze</option>
+                    </select>
+                  </label>
+                </div>
+
+                <label className="admin-field">
+                  <span className="admin-field-label">Title</span>
+                  <input
+                    type="text"
+                    value={selectedProject.title}
+                    onChange={(e) => updateProjectField("title", e.target.value)}
+                  />
+                </label>
+
+                <label className="admin-field">
+                  <span className="admin-field-label">One-line pitch</span>
+                  <textarea
+                    rows="2"
+                    value={selectedProject.pitch}
+                    onChange={(e) => updateProjectField("pitch", e.target.value)}
+                  />
+                </label>
+
+                <div className="admin-field">
+                  <span className="admin-field-label">
+                    Categories &nbsp;<span style={{ color: "var(--muted)", letterSpacing: 0, textTransform: "none" }}>— a work can carry more than one</span>
+                  </span>
+                  <div className="cat-checkboxes">
+                    {cats.map((c) => {
+                      const on = (selectedProject.categories || []).includes(c.id);
+                      return (
+                        <label
+                          key={c.id}
+                          className={clsx("cat-checkbox", on && "is-on")}
+                          style={{ "--cat-color": c.color }}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={on}
+                            onChange={() => toggleCategory(c.id)}
+                          />
+                          <span className="cat-checkbox-glyph">{c.glyph}</span>
+                          <span className="cat-checkbox-label">{c.label}</span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                  <span className="admin-field-hint">
+                    The first checked category sets the card's primary color.
+                    Reorder by un-checking and re-checking in the order you want.
+                  </span>
+                </div>
+              </div>
+
+              <div className="admin-section">
+                <div className="admin-section-label">▼ Funding &amp; Horizon</div>
+                <div className="admin-field-row">
+                  <label className="admin-field">
+                    <span className="admin-field-label">Seed funding (Phase I)</span>
+                    <input
+                      type="text"
+                      value={selectedProject.scoping}
+                      onChange={(e) => updateProjectField("scoping", e.target.value)}
+                    />
+                  </label>
+                  <label className="admin-field">
+                    <span className="admin-field-label">Full funding</span>
+                    <input
+                      type="text"
+                      value={selectedProject.budget}
+                      onChange={(e) => updateProjectField("budget", e.target.value)}
+                    />
+                  </label>
+                </div>
+                <div className="admin-field-row">
+                  <label className="admin-field">
+                    <span className="admin-field-label">Horizon (card label)</span>
+                    <input
+                      type="text"
+                      value={selectedProject.timeline}
+                      onChange={(e) => updateProjectField("timeline", e.target.value)}
+                    />
+                  </label>
+                  <label className="admin-field">
+                    <span className="admin-field-label">Locale</span>
+                    <input
+                      type="text"
+                      value={selectedProject.locale || ""}
+                      onChange={(e) => updateProjectField("locale", e.target.value)}
+                    />
+                  </label>
+                </div>
+                <label className="admin-field">
+                  <span className="admin-field-label">Proposed lead</span>
+                  <input
+                    type="text"
+                    value={selectedProject.lead || ""}
+                    onChange={(e) => updateProjectField("lead", e.target.value)}
+                  />
+                </label>
+              </div>
+
+              <div className="admin-section">
+                <div className="admin-section-label">▼ The Brief</div>
+                <label className="admin-field">
+                  <span className="admin-field-label">
+                    Body paragraphs — separate with a blank line
+                  </span>
+                  <textarea
+                    rows="12"
+                    value={(selectedProject.body || []).join("\n\n")}
+                    onChange={(e) => updateBodyText(e.target.value)}
+                  />
+                </label>
+              </div>
+
+              <div className="admin-section">
+                <div className="admin-section-label">▼ Illustration</div>
+                <label className="admin-field">
+                  <span className="admin-field-label">
+                    Image-prompt scene (style preamble is appended automatically)
+                  </span>
+                  <textarea
+                    rows="4"
+                    value={selectedProject.imagePrompt || ""}
+                    onChange={(e) => updateProjectField("imagePrompt", e.target.value)}
+                  />
+                  <span className="admin-field-hint">
+                    The image itself is dropped onto the tile in the live menu.
+                  </span>
+                </label>
+              </div>
+
+              <div className="admin-actions">
+                <button className="admin-btn is-primary" onClick={applyChanges}>
+                  ✓ Save changes
+                </button>
+                <button className="admin-btn" onClick={onClose}>
+                  Close editor
+                </button>
+              </div>
+            </>
+          )}
+
+          {/* PARTNER EDITOR */}
+          {selectedPartner && (
+            <>
+              <div className="admin-editor-head">
+                <h3>{selectedPartner.name || "Untitled partner"}</h3>
+                <button
+                  className="admin-btn is-danger"
+                  onClick={() => {
+                    if (confirm("Remove this partner from the strip?")) {
+                      deletePartner(selectedPartner.id);
+                    }
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+
+              <div className="admin-section">
+                <div className="admin-section-label">▼ Partner</div>
+                <label className="admin-field">
+                  <span className="admin-field-label">Display name</span>
+                  <input
+                    type="text"
+                    value={selectedPartner.name || ""}
+                    onChange={(e) => updatePartnerField("name", e.target.value)}
+                  />
+                  <span className="admin-field-hint">
+                    Shown as a caption under the logo. Drop the partner's actual logo onto the matching image slot in the live page.
+                  </span>
+                </label>
+
+                <div className="admin-field-row">
+                  <button
+                    type="button"
+                    className="admin-btn"
+                    onClick={() => movePartner(selectedPartner.id, -1)}
+                  >
+                    ← Move earlier
+                  </button>
+                  <button
+                    type="button"
+                    className="admin-btn"
+                    onClick={() => movePartner(selectedPartner.id, 1)}
+                  >
+                    Move later →
+                  </button>
+                </div>
+              </div>
+
+              <div className="admin-section">
+                <div className="admin-section-label">▼ Preview</div>
+                <div className="admin-partner-preview">
+                  <div className="partner-logo" style={{ width: 160, height: 90 }}>
+                    <image-slot
+                      id={`gw-partner-${selectedPartner.id}`}
+                      shape="rect"
+                      placeholder={selectedPartner.name}
+                      style={{ width: "100%", height: "100%", display: "block" }}
+                    ></image-slot>
+                  </div>
+                  <div style={{ fontFamily: "Playfair Display, serif", fontStyle: "italic", marginTop: 10, color: "var(--ink-soft)" }}>
+                    {selectedPartner.name}
+                  </div>
+                </div>
+              </div>
+
+              <div className="admin-actions">
+                <button className="admin-btn is-primary" onClick={applyChanges}>
+                  ✓ Save changes
+                </button>
+                <button className="admin-btn" onClick={onClose}>
+                  Close editor
+                </button>
+              </div>
+            </>
+          )}
+        </main>
+      </div>
+
+      {toast && (
+        <div className="admin-toast">
+          ✓ <em>{toast}</em>
+        </div>
+      )}
+    </div>
+  );
+}
+
+window.AdminPanel = AdminPanel;
+  </script>
+
+  <!-- Main app (inlined) -->
+  <script type="text/babel">
+/* Great Works Studio — The Pantheon
+   Main React application. Magazine-cover tile grid + modal detail view.
+*/
+
+const { useState, useEffect, useMemo, useRef } = React;
+
+// ─────────────────────────────────────────────────────────────────────────
+// Helpers
+// ─────────────────────────────────────────────────────────────────────────
+
+function useEscape(onEsc) {
+  useEffect(() => {
+    function h(e) { if (e.key === "Escape") onEsc(); }
+    window.addEventListener("keydown", h);
+    return () => window.removeEventListener("keydown", h);
+  }, [onEsc]);
+}
+window.useEscape = useEscape;
+
+function clsx(...args) {
+  return args.filter(Boolean).join(" ");
+}
+window.clsx = clsx;
+
+// Always return an array of category IDs (handles legacy single-cat data).
+function categoriesFor(project) {
+  if (Array.isArray(project.categories) && project.categories.length > 0) {
+    return project.categories;
+  }
+  if (project.category) return [project.category];
+  return [];
+}
+window.categoriesFor = categoriesFor;
+
+// Accent class derived from primary category, so old `accent` field stays optional.
+function accentFor(project) {
+  const primary = categoriesFor(project)[0];
+  if (project.accent) return project.accent;
+  if (primary === "garden") return "green";
+  if (primary === "monumental") return "red";
+  if (primary === "commissioned") return "blue";
+  if (primary === "arcane") return "purple";
+  if (primary === "union") return "indigo";
+  if (primary === "defense") return "bronze";
+  return "ink";
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Masthead
+// ─────────────────────────────────────────────────────────────────────────
+
+function Masthead({ onAdmin }) {
+  return (
+    <header className="masthead">
+      <div className="masthead-rule"></div>
+
+      <div className="masthead-meta">
+        <span className="meta-block">VOL. I · NO. 02</span>
+        <span className="meta-block">PUBLISHED BY GREAT WORKS STUDIO</span>
+        <span className="meta-block">NEW YORK · EST. 2026</span>
+        <button className="admin-link" onClick={onAdmin} title="Open the Pantheon editor">
+          ✎ Edit the Pantheon
+        </button>
+      </div>
+
+      <div className="masthead-title">
+        <div className="masthead-ornament">❦</div>
+        <h1 className="masthead-name">
+          <span className="masthead-name-the">the</span>
+          Pantheon<span className="masthead-period">.</span>
+        </h1>
+        <div className="masthead-ornament">❦</div>
+      </div>
+
+      <div className="masthead-sub">
+        A catalog of commission-able great work(s).
+      </div>
+
+      <div className="masthead-rule"></div>
+
+      <div className="manifesto">
+        <p className="manifesto-lead">
+          The world is in need of more <em>great works</em>.
+        </p>
+        <p className="manifesto-body">
+          Many of the great works that our world needs are not shaped like startups,
+          nor will they happen unless someone determines to apply force of will at a
+          very precise point in the system. We pair far-sighted patrons with
+          well-scoped, audacious, accomplishable projects and assemble the teams who
+          can get them done.
+        </p>
+      </div>
+    </header>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Partners strip — horizontal scrolling marquee of partner-org logos.
+// ─────────────────────────────────────────────────────────────────────────
+
+function PartnersStrip({ partners }) {
+  if (!partners || partners.length === 0) return null;
+  // Duplicate the list so the marquee loops seamlessly.
+  const loop = [...partners, ...partners];
+  return (
+    <section className="partners-section" aria-label="Studio partners">
+      <div className="partners-eyebrow">
+        <span className="partners-rule"></span>
+        <span className="partners-label">Partners</span>
+        <span className="partners-rule"></span>
+      </div>
+      <div className="partners-marquee">
+        <div className="partners-track">
+          {loop.map((p, i) => (
+            <div className="partner" key={`${p.id}-${i}`}>
+              <div className="partner-logo">
+                <image-slot
+                  id={`gw-partner-${p.id}`}
+                  shape="rect"
+                  placeholder={p.name}
+                  style={{ width: "100%", height: "100%", display: "block" }}
+                ></image-slot>
+              </div>
+              <div className="partner-name">{p.name}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Filter Bar
+// ─────────────────────────────────────────────────────────────────────────
+
+function FilterBar({ active, setActive, counts }) {
+  const cats = Object.values(window.GW_CATEGORIES);
+  return (
+    <div className="filter-bar">
+      <div className="filter-label">Category ▶</div>
+      <button
+        className={clsx("filter-chip", active === "all" && "is-active")}
+        onClick={() => setActive("all")}
+      >
+        <span className="chip-glyph">✦</span>
+        <span className="chip-label">All Works</span>
+        <span className="chip-count">{counts.all}</span>
+      </button>
+      {cats.map((c) => (
+        <button
+          key={c.id}
+          className={clsx("filter-chip", active === c.id && "is-active")}
+          style={{ "--chip-color": c.color }}
+          onClick={() => setActive(c.id)}
+        >
+          <span className="chip-glyph" style={{ color: c.color }}>{c.glyph}</span>
+          <span className="chip-label">{c.label}</span>
+          <span className="chip-count">{counts[c.id] || 0}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Category strip — one or more category tags on a tile / modal header.
+// ─────────────────────────────────────────────────────────────────────────
+
+function CategoryStrip({ project, variant = "tile" }) {
+  const ids = categoriesFor(project);
+  const cats = ids
+    .map((id) => window.GW_CATEGORIES[id])
+    .filter(Boolean);
+  if (cats.length === 0) return null;
+  return (
+    <div className={clsx("tile-cat-strip", variant === "modal" && "is-modal")}>
+      <div className="tile-cat-segs">
+        {cats.map((c, i) => (
+          <span
+            key={c.id}
+            className="tile-cat-seg"
+            style={{ background: c.color }}
+          >
+            <span className="tile-cat-glyph">{c.glyph}</span>
+            <span className="tile-cat-label">{c.label}</span>
+          </span>
+        ))}
+      </div>
+      <span className="tile-no">{project.no}</span>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Tile
+// ─────────────────────────────────────────────────────────────────────────
+
+function Tile({ project, onOpen }) {
+  const cats = categoriesFor(project)
+    .map((id) => window.GW_CATEGORIES[id])
+    .filter(Boolean);
+  if (cats.length === 0) return null;
+  const primary = cats[0];
+  return (
+    <article
+      className={clsx("tile", "tile-accent-" + accentFor(project))}
+      onClick={onOpen}
+      data-screen-label={`Tile · ${project.title}`}
+      style={{ "--cat-color": primary.color }}
+    >
+      <div className="tile-frame">
+        <CategoryStrip project={project} />
+
+        <div className="tile-image-wrap">
+          <image-slot
+            id={`gw-${project.id}`}
+            shape="rect"
+            placeholder={`Drop illustration · ${project.title}`}
+            style={{ width: "100%", height: "100%", display: "block" }}
+          ></image-slot>
+          <div className="tile-image-corner">
+            <span className="corner-cat">{primary.glyph}</span>
+          </div>
+        </div>
+
+        <div className="tile-body">
+          <h2 className="tile-title">{project.title}</h2>
+          <p className="tile-pitch">{project.pitch}</p>
+
+          <div className="tile-meta">
+            <div className="meta-cell">
+              <div className="meta-cell-label">Seed Funding</div>
+              <div className="meta-cell-value">{project.scoping}</div>
+            </div>
+            <div className="meta-cell">
+              <div className="meta-cell-label">Full Funding</div>
+              <div className="meta-cell-value">{project.budget}</div>
+            </div>
+            <div className="meta-cell">
+              <div className="meta-cell-label">Horizon</div>
+              <div className="meta-cell-value">{project.timeline}</div>
+            </div>
+          </div>
+
+          <div className="tile-cta">
+            <span>Inquire about funding this work</span>
+            <span className="cta-arrow">→</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Modal
+// ─────────────────────────────────────────────────────────────────────────
+
+function Modal({ project, onClose }) {
+  const [tab, setTab] = useState("brief"); // brief | direction | inquire
+  const [copied, setCopied] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const scrollRef = useRef(null);
+  useEscape(onClose);
+
+  useEffect(() => {
+    if (scrollRef.current) scrollRef.current.scrollTop = 0;
+  }, [project.id, tab]);
+
+  if (!project) return null;
+  const cats = categoriesFor(project)
+    .map((id) => window.GW_CATEGORIES[id])
+    .filter(Boolean);
+  if (cats.length === 0) return null;
+  const primary = cats[0];
+
+  const fullPrompt = `${project.imagePrompt}\n\n— Shared style —\n${window.GW_STYLE_PREAMBLE}`;
+
+  function copyPrompt() {
+    navigator.clipboard.writeText(fullPrompt);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1800);
+  }
+
+  function submit(e) {
+    e.preventDefault();
+    setSubmitted(true);
+  }
+
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div
+        className={clsx("modal", "tile-accent-" + accentFor(project))}
+        onClick={(e) => e.stopPropagation()}
+        style={{ "--cat-color": primary.color }}
+        data-screen-label={`Modal · ${project.title}`}
+      >
+        <button className="modal-close" onClick={onClose} aria-label="Close">✕</button>
+
+        <CategoryStrip project={project} variant="modal" />
+
+        <div className="modal-grid">
+          <div className="modal-image">
+            <image-slot
+              id={`gw-${project.id}`}
+              shape="rect"
+              placeholder={`Drop illustration · ${project.title}`}
+              style={{ width: "100%", height: "100%", display: "block" }}
+            ></image-slot>
+            <div className="modal-image-caption">
+              <span className="caption-mark">FIG. {(project.no || "").replace("GW—", "")}</span>
+              <span className="caption-text">{project.title} — illustration to be commissioned.</span>
+            </div>
+          </div>
+
+          <div className="modal-content" ref={scrollRef}>
+            <div className="modal-eyebrow">A Great Work, Seeking Patron</div>
+            <h2 className="modal-title">{project.title}</h2>
+            <p className="modal-pitch">{project.pitch}</p>
+
+            <div className="modal-stats">
+              <div className="modal-stat">
+                <div className="stat-label">Seed Funding</div>
+                <div className="stat-value">{project.scoping}</div>
+              </div>
+              <div className="modal-stat">
+                <div className="stat-label">Full Funding</div>
+                <div className="stat-value">{project.budget}</div>
+              </div>
+              <div className="modal-stat">
+                <div className="stat-label">Horizon</div>
+                <div className="stat-value">{project.timeline}</div>
+              </div>
+              <div className="modal-stat">
+                <div className="stat-label">Locale</div>
+                <div className="stat-value sm">{project.locale}</div>
+              </div>
+              <div className="modal-stat">
+                <div className="stat-label">Proposed Lead</div>
+                <div className="stat-value sm">{project.lead}</div>
+              </div>
+            </div>
+
+            <div className="modal-tabs">
+              <button
+                className={clsx("modal-tab", tab === "brief" && "is-active")}
+                onClick={() => setTab("brief")}
+              >The Brief</button>
+              <button
+                className={clsx("modal-tab", tab === "direction" && "is-active")}
+                onClick={() => setTab("direction")}
+              >Image Direction</button>
+              <button
+                className={clsx("modal-tab", tab === "inquire" && "is-active")}
+                onClick={() => setTab("inquire")}
+              >Inquire</button>
+            </div>
+
+            {tab === "brief" && (
+              <div className="modal-tab-panel">
+                {(project.body || []).map((p, i) => (
+                  <p key={i} className="brief-para">
+                    {i === 0 && p.length > 0 && <span className="drop-cap">{p[0]}</span>}
+                    {i === 0 ? p.slice(1) : p}
+                  </p>
+                ))}
+
+                <div className="scoping-callout">
+                  <div className="scoping-eyebrow">▶ Phase I · Seed Funding</div>
+                  <div className="scoping-row">
+                    <div className="scoping-price">{project.scoping}</div>
+                    <div className="scoping-explain">
+                      The minimum first commitment. Produces the charter, the team, and
+                      the implementation plan that unlocks the full programme.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {tab === "direction" && (
+              <div className="modal-tab-panel">
+                <p className="direction-intro">
+                  Each Great Work is illustrated in a single cover style — 1940s Fortune
+                  Magazine meets golden-age comics. Below: the scene to commission for
+                  this work, plus the shared style preamble. Paste both into Midjourney v7,
+                  Imagen 4, or DALL·E. Drop the result onto the image slot.
+                </p>
+
+                <div className="prompt-block">
+                  <div className="prompt-header">
+                    <span className="prompt-label">SCENE · {project.no}</span>
+                    <button className="prompt-copy" onClick={copyPrompt}>
+                      {copied ? "✓ Copied" : "Copy prompt"}
+                    </button>
+                  </div>
+                  <div className="prompt-body">
+                    <p className="prompt-scene">{project.imagePrompt}</p>
+                    <div className="prompt-rule"></div>
+                    <p className="prompt-preamble">{window.GW_STYLE_PREAMBLE}</p>
+                  </div>
+                </div>
+
+                <div className="direction-tip">
+                  <strong>Tip.</strong> Generate four candidates per project at 4:5 portrait,
+                  then upscale the strongest. Keep palettes consistent across the menu by
+                  reusing the style preamble verbatim.
+                </div>
+              </div>
+            )}
+
+            {tab === "inquire" && (
+              <div className="modal-tab-panel">
+                {!submitted ? (
+                  <form className="inquire-form" onSubmit={submit}>
+                    <p className="inquire-lede">
+                      An inquiry is not a commitment. It begins a private conversation
+                      with a partner of the Studio. We respond within five working days.
+                    </p>
+
+                    <label className="field">
+                      <span className="field-label">Your name</span>
+                      <input required type="text" placeholder="" />
+                    </label>
+
+                    <div className="field-row">
+                      <label className="field">
+                        <span className="field-label">Email</span>
+                        <input required type="email" placeholder="" />
+                      </label>
+                      <label className="field">
+                        <span className="field-label">Affiliation</span>
+                        <input type="text" placeholder="Family office, foundation, individual…" />
+                      </label>
+                    </div>
+
+                    <label className="field">
+                      <span className="field-label">Interest</span>
+                      <select required defaultValue="scoping">
+                        <option value="scoping">Seed funding ({project.scoping})</option>
+                        <option value="full">Full programme commitment ({project.budget})</option>
+                        <option value="consortium">Join a patron consortium</option>
+                        <option value="conversation">Schedule an exploratory conversation</option>
+                      </select>
+                    </label>
+
+                    <label className="field">
+                      <span className="field-label">A few sentences (optional)</span>
+                      <textarea rows="4" placeholder={`Why this Great Work, and not another.`}></textarea>
+                    </label>
+
+                    <div className="inquire-actions">
+                      <button type="submit" className="inquire-submit">
+                        Inquire about <em>{project.title}</em> <span>→</span>
+                      </button>
+                      <div className="inquire-fineprint">
+                        Confidential. Held by the Studio. Never shared.
+                      </div>
+                    </div>
+                  </form>
+                ) : (
+                  <div className="inquire-confirmation">
+                    <div className="confirmation-mark">✓</div>
+                    <h3>Inquiry received.</h3>
+                    <p>
+                      A partner of the Studio will reach out within five working days
+                      regarding <em>{project.title}</em>. In the meantime, you may continue
+                      to browse the Pantheon.
+                    </p>
+                    <button className="confirmation-close" onClick={onClose}>
+                      Return to the Pantheon →
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Suggest a Great Work — sticky right-side drawer
+// ─────────────────────────────────────────────────────────────────────────
+
+function SuggestDrawer() {
+  const [open, setOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    function h(e) { if (e.key === "Escape") setOpen(false); }
+    window.addEventListener("keydown", h);
+    return () => window.removeEventListener("keydown", h);
+  }, [open]);
+
+  function submit(e) {
+    e.preventDefault();
+    setSubmitted(true);
+  }
+
+  function reset() {
+    setOpen(false);
+    setTimeout(() => setSubmitted(false), 340);
+  }
+
+  return (
+    <aside
+      className={clsx("suggest-drawer", open && "is-open")}
+      data-screen-label="Drawer · Suggest a Great Work"
+      aria-label="Suggest a great work"
+    >
+      <button
+        className="suggest-handle"
+        onClick={() => setOpen(true)}
+        aria-label="Open suggestion drawer"
+      >
+        <span className="handle-glyph">✦</span>
+        <span>Suggest a</span>
+        <em>great work</em>
+      </button>
+
+      <div className="suggest-panel" role="dialog" aria-hidden={!open}>
+        <div className="suggest-panel-head">
+          <div className="suggest-panel-eyebrow">✦ Suggest a Great Work</div>
+          <h3 className="suggest-panel-title">
+            What ought to be in <span style={{ fontStyle: "italic" }}>the Pantheon</span>?
+          </h3>
+          <p className="suggest-panel-lede">
+            Tell us the idea you wish existed in the world. We read every suggestion.
+          </p>
+          <button
+            className="suggest-panel-close"
+            onClick={() => setOpen(false)}
+            aria-label="Collapse drawer"
+            title="Collapse"
+          >→</button>
+        </div>
+
+        <div className="suggest-panel-body">
+          {!submitted ? (
+            <form onSubmit={submit}>
+              <label className="field">
+                <span className="field-label">Your name</span>
+                <input required type="text" />
+              </label>
+              <label className="field">
+                <span className="field-label">Title</span>
+                <input required type="text" placeholder="What you do" />
+              </label>
+              <label className="field">
+                <span className="field-label">Email</span>
+                <input required type="email" />
+              </label>
+              <label className="field">
+                <span className="field-label">The idea</span>
+                <textarea
+                  required
+                  rows="5"
+                  placeholder="A one-paragraph sketch of the great work you think the world needs."
+                />
+              </label>
+              <div className="inquire-actions">
+                <button type="submit" className="inquire-submit">
+                  Send <em>suggestion</em> <span>→</span>
+                </button>
+                <div className="inquire-fineprint">
+                  Confidential. Held by the Studio.
+                </div>
+              </div>
+            </form>
+          ) : (
+            <div className="inquire-confirmation">
+              <div className="confirmation-mark">✓</div>
+              <h3>Suggestion received.</h3>
+              <p>
+                Thank you. A partner of the Studio reads every suggestion personally.
+                If yours sparks a commission, we will write to you.
+              </p>
+              <button className="confirmation-close" onClick={reset}>
+                Return to the Pantheon →
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </aside>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Tweaks
+// ─────────────────────────────────────────────────────────────────────────
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "palette": "cream",
+  "density": "spacious"
+}/*EDITMODE-END*/;
+
+const PALETTES = [
+  { id: "cream",     label: "Cream",     swatch: ["#F5EFE0", "#1A1410", "#B98718"] },
+  { id: "newsprint", label: "Newsprint", swatch: ["#EAE6DC", "#15110D", "#B23A2A"] },
+  { id: "midnight",  label: "Midnight",  swatch: ["#161821", "#ECE2C5", "#E8A820"] },
+  { id: "bone",      label: "Bone",      swatch: ["#EDE3CE", "#241A12", "#A05028"] },
+];
+
+function PaletteSwatches({ value, onChange }) {
+  return (
+    <div className="palette-swatches">
+      {PALETTES.map((p) => (
+        <button
+          key={p.id}
+          type="button"
+          className={clsx("palette-swatch", value === p.id && "is-on")}
+          onClick={() => onChange(p.id)}
+          aria-label={p.label}
+          title={p.label}
+        >
+          <span className="palette-swatch-stack" aria-hidden="true">
+            <i style={{ background: p.swatch[0] }}></i>
+            <i style={{ background: p.swatch[1] }}></i>
+            <i style={{ background: p.swatch[2] }}></i>
+          </span>
+          <span className="palette-swatch-label">{p.label}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function TweakBar() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  useEffect(() => {
+    document.documentElement.dataset.palette = t.palette;
+    document.documentElement.dataset.density = t.density;
+  }, [t.palette, t.density]);
+
+  return (
+    <TweaksPanel title="Tweaks">
+      <TweakSection label="Palette">
+        <PaletteSwatches value={t.palette} onChange={(v) => setTweak("palette", v)} />
+      </TweakSection>
+      <TweakSection label="Density">
+        <TweakRadio
+          label="Layout"
+          value={t.density}
+          options={[
+            { value: "spacious", label: "Spacious" },
+            { value: "dense", label: "Dense" },
+          ]}
+          onChange={(v) => setTweak("density", v)}
+        />
+      </TweakSection>
+    </TweaksPanel>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// App
+// ─────────────────────────────────────────────────────────────────────────
+
+function App() {
+  // Initial projects + partners: localStorage override → source defaults.
+  const [projects, setProjects] = useState(() => {
+    const stored = window.GW_loadProjects && window.GW_loadProjects();
+    return stored || window.GW_PROJECTS;
+  });
+  const [partners, setPartners] = useState(() => {
+    const stored = window.GW_loadPartners && window.GW_loadPartners();
+    return stored || window.GW_PARTNERS;
+  });
+
+  const [activeCat, setActiveCat] = useState("all");
+  const [openId, setOpenId] = useState(null);
+  const [adminOpen, setAdminOpen] = useState(false);
+
+  const catCounts = useMemo(() => {
+    const c = { all: projects.length };
+    for (const p of projects) {
+      for (const id of categoriesFor(p)) {
+        c[id] = (c[id] || 0) + 1;
+      }
+    }
+    return c;
+  }, [projects]);
+
+  const visible = useMemo(() => {
+    return projects.filter((p) => {
+      if (activeCat === "all") return true;
+      return categoriesFor(p).includes(activeCat);
+    });
+  }, [projects, activeCat]);
+
+  const openProject = openId ? projects.find((p) => p.id === openId) : null;
+
+  // initial palette applied once on mount
+  useEffect(() => {
+    if (!document.documentElement.dataset.palette) {
+      document.documentElement.dataset.palette = TWEAK_DEFAULTS.palette;
+    }
+    if (!document.documentElement.dataset.density) {
+      document.documentElement.dataset.density = TWEAK_DEFAULTS.density;
+    }
+  }, []);
+
+  // Keep window-globals in sync so other scripts see edits.
+  useEffect(() => { window.GW_PROJECTS = projects; }, [projects]);
+  useEffect(() => { window.GW_PARTNERS = partners; }, [partners]);
+
+  return (
+    <div className="app">
+      <div className="page-frame">
+        <Masthead onAdmin={() => setAdminOpen(true)} />
+
+        <PartnersStrip partners={partners} />
+
+        <FilterBar
+          active={activeCat}
+          setActive={setActiveCat}
+          counts={catCounts}
+        />
+
+        <div className="grid-eyebrow">
+          <span className="grid-eyebrow-rule"></span>
+          <span className="grid-eyebrow-text">
+            {visible.length} {visible.length === 1 ? "Work" : "Works"} · Each a real commission · Each scoped for one patron or a small consortium
+          </span>
+          <span className="grid-eyebrow-rule"></span>
+        </div>
+
+        <div className="tile-grid">
+          {visible.map((p) => (
+            <Tile key={p.id} project={p} onOpen={() => setOpenId(p.id)} />
+          ))}
+        </div>
+
+        {visible.length === 0 && (
+          <div style={{
+            textAlign: "center",
+            padding: "60px 20px",
+            fontFamily: "Playfair Display, serif",
+            fontStyle: "italic",
+            fontSize: 18,
+            color: "var(--muted)",
+          }}>
+            No works in this category — try a different filter.
+          </div>
+        )}
+
+        <footer className="page-foot">
+          <div className="foot-rule"></div>
+          <div className="foot-row">
+            <div className="foot-logo">Great Works Studio</div>
+            <div className="foot-contact">studio@greatworks.studio</div>
+            <div className="foot-meta">CONFIDENTIAL · 2026 · IDEA STAGE</div>
+          </div>
+        </footer>
+      </div>
+
+      {openProject && <Modal project={openProject} onClose={() => setOpenId(null)} />}
+
+      {adminOpen && (
+        <AdminPanel
+          projects={projects}
+          onApply={(next) => setProjects(next)}
+          partners={partners}
+          onApplyPartners={(next) => setPartners(next)}
+          onClose={() => setAdminOpen(false)}
+        />
+      )}
+
+      <SuggestDrawer />
+
+      <TweakBar />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
