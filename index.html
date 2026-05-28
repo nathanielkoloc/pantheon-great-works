@@ -4900,6 +4900,24 @@ function App() {
             <div className="foot-logo">Great Works Studio</div>
             <div className="foot-contact">studio@greatworks.studio</div>
             <div className="foot-meta">CONFIDENTIAL · 2026 · IDEA STAGE</div>
+            <button
+              className="admin-link"
+              title="Export images so they can be baked into the site"
+              onClick={() => {
+                try {
+                  const data = localStorage.getItem('__gw_image_slots') || '{}';
+                  const blob = new Blob([data], { type: 'application/json' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = 'gw-images.json';
+                  document.body.appendChild(a);
+                  a.click();
+                  document.body.removeChild(a);
+                  URL.revokeObjectURL(url);
+                } catch(e) { alert('No images saved yet — drop images onto the cards first.'); }
+              }}
+            >↓ Export images</button>
           </div>
         </footer>
       </div>
