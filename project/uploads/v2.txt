@@ -1,0 +1,59 @@
+﻿I do need a way to quickly update the tile/card details without using code, so please build some sort of simple admin panel.
+
+
+Add a time horizon filter, generally these should be 2 years, 5 years, 10 years, or 25 years.
+
+
+Add a “suggest a great work” button that allows a mini form to be sent to us with the idea after capturing name, title, email.
+
+
+Revise the explanatory paragraph to this:
+
+
+Many of the great works that our world needs are not shaped like startups, nor will they happen unless someone determines to apply force of will at a very precise point in the system. We pair far-sighted patrons with well-scoped, audacious, accomplishable projects and assemble the teams who can get them done. 
+
+
+
+
+Add
+Categories of project: 
+* A More Perfect Union
+* Civilizational Defense
+
+
+Projects
+
+
+Remove
+* Hospital for the Long Dying
+* Funding Illegible 
+* New School of the Hand
+* Mission-Targeted Startups
+
+
+Revise
+* Enlarge Manhattan Island > Expand Manhattan
+
+
+Add these:
+
+
+Simple Agreement for Future IP Royalties (SAFIR)
+Develop a simple, scalable legal framework that grants patrons participation in any commercial IP developed from a grant that they give.
+
+
+Repopulate Lightning Bugs [garden empire]
+
+
+Refill the Great Salt Lake [garden empire]
+
+
+Install a National Service Program [a more perfect union]
+Design, develop, and pass with bipartisan support the installation of a “national internal peace corps” type mandatory program for high school graduates to take one year doing service in a part of the country far away from where they grew up.
+
+
+Develop a National Bullet Train System [monumental projects]
+
+
+Develop a Special Economic Zone within the United States [a more perfect union]
+A zone free of most otherwise ubiquitous regulations, to allow for an intentional tradeoff of caution in favor of accelerated innovation. Like Hong Kong but without the human rights violations.

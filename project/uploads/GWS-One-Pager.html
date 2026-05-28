@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Great Works Studio — Overview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink:    #1A1410;
+      --red:    #C8362A;
+      --blue:   #1B6FBF;
+      --gold:   #E8A820;
+      --cream:  #F5EFE0;
+      --panel:  #EDE5D0;
+      --muted:  #7A6A58;
+      --green:  #2A7A3B;
+      --purple: #5C2D8C;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .page { page-break-after: avoid; }
+    }
+
+    body {
+      background: #D0C8B8;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .page {
+      width: 8.5in;
+      min-height: 11in;
+      background: var(--cream);
+      border: 3px solid var(--ink);
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    /* ─── HEADER ─── */
+    .header {
+      background: var(--ink);
+      display: grid;
+      grid-template-columns: 0.3in 1fr auto;
+      min-height: 1.4in;
+    }
+
+    .header-bar {
+      background: var(--gold);
+    }
+
+    .header-content {
+      padding: 0.3in 0.35in;
+    }
+
+    .header-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 7pt;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.1in;
+    }
+
+    .header-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52pt;
+      letter-spacing: 0.04em;
+      line-height: 0.92;
+      color: var(--cream);
+    }
+
+    .header-tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: 10pt;
+      font-style: italic;
+      color: rgba(245,239,224,0.55);
+      margin-top: 0.08in;
+    }
+
+    .header-right {
+      padding: 0.25in 0.35in;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 0.08in;
+      min-width: 2in;
+    }
+
+    .header-badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 6.5pt;
+      letter-spacing: 0.2em;
+      color: rgba(245,239,224,0.4);
+      text-transform: uppercase;
+      text-align: right;
+    }
+
+    .header-ask {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28pt;
+      color: var(--gold);
+      text-align: right;
+      line-height: 1;
+    }
+
+    .header-ask-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 6pt;
+      letter-spacing: 0.2em;
+      color: rgba(245,239,224,0.4);
+      text-align: right;
+    }
+
+    /* ─── BODY ─── */
+    .body {
+      display: grid;
+      grid-template-columns: 1fr 2.6in;
+      gap: 0;
+    }
+
+    .body-left {
+      padding: 0.3in 0.3in 0.3in 0.3in;
+      border-right: 2px solid var(--ink);
+    }
+
+    .body-right {
+      padding: 0.25in 0.25in;
+      background: var(--panel);
+      display: flex;
+      flex-direction: column;
+      gap: 0.2in;
+    }
+
+    /* Section label */
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 6.5pt;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--red);
+      display: flex;
+      align-items: center;
+      gap: 0.08in;
+      margin-bottom: 0.06in;
+    }
+
+    .section-label::before { content: '▶'; font-size: 5pt; }
+
+    /* Section blocks */
+    .section {
+      margin-bottom: 0.22in;
+      padding-bottom: 0.22in;
+      border-bottom: 1px solid rgba(26,20,16,0.12);
+    }
+
+    .section:last-child { border-bottom: none; margin-bottom: 0; }
+
+    .section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 14pt;
+      font-weight: 900;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 0.08in;
+    }
+
+    .section h2 em { font-style: italic; color: var(--red); }
+
+    .section p {
+      font-size: 8.5pt;
+      line-height: 1.65;
+      color: #4A3C30;
+    }
+
+    /* Highlighted statement */
+    .pull-quote {
+      border-left: 3px solid var(--gold);
+      padding: 0.1in 0.12in;
+      background: rgba(232,168,32,0.06);
+      margin: 0.1in 0;
+    }
+
+    .pull-quote p {
+      font-family: 'Playfair Display', serif;
+      font-size: 9.5pt;
+      font-style: italic;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    /* Example projects inline */
+    .project-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.08in;
+      margin-top: 0.1in;
+    }
+
+    .project-chip {
+      border: 1.5px solid var(--ink);
+      padding: 0.06in 0.08in;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .project-chip-cat {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 5.5pt;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .project-chip-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 7.5pt;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    /* Right column cards */
+    .right-card {
+      border: 1.5px solid var(--ink);
+      background: var(--cream);
+    }
+
+    .right-card-header {
+      padding: 0.07in 0.1in;
+      display: flex;
+      align-items: center;
+      gap: 0.07in;
+      border-bottom: 1.5px solid var(--ink);
+    }
+
+    .right-card-icon {
+      width: 0.22in;
+      height: 0.22in;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8pt;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .right-card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 10pt;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+    }
+
+    .right-card-body {
+      padding: 0.1in;
+    }
+
+    .right-card-body p {
+      font-size: 7.5pt;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    .right-card-stat {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 6.5pt;
+      color: var(--gold);
+      margin-top: 0.07in;
+      padding-top: 0.07in;
+      border-top: 1px solid rgba(26,20,16,0.1);
+    }
+
+    /* Team mini cards */
+    .team-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.08in;
+    }
+
+    .team-row {
+      display: grid;
+      grid-template-columns: 0.18in 1fr;
+      gap: 0.07in;
+      align-items: start;
+      padding: 0.07in 0.08in;
+      background: var(--ink);
+    }
+
+    .team-dot {
+      width: 0.18in;
+      height: 0.18in;
+      border-radius: 50%;
+      margin-top: 2px;
+    }
+
+    .team-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 8.5pt;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 1px;
+    }
+
+    .team-role {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 5.5pt;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(245,239,224,0.4);
+      margin-bottom: 3px;
+    }
+
+    .team-bio {
+      font-size: 7pt;
+      line-height: 1.45;
+      color: rgba(245,239,224,0.6);
+    }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      background: var(--ink);
+      border-top: 2px solid var(--gold);
+      padding: 0.12in 0.3in;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13pt;
+      letter-spacing: 0.1em;
+      color: var(--cream);
+    }
+
+    .footer-contact {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 6.5pt;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+    }
+
+    .footer-date {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 6pt;
+      color: rgba(245,239,224,0.3);
+      letter-spacing: 0.1em;
+    }
+
+    /* ─── CORNER ORNAMENT ─── */
+    .corner-ornament {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 0.8in;
+      height: 0.8in;
+      border-left: 2px solid rgba(232,168,32,0.2);
+      border-bottom: 2px solid rgba(232,168,32,0.2);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <div class="corner-ornament"></div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-bar"></div>
+    <div class="header-content">
+      <div class="header-eyebrow">Est. 2026 · New York · Confidential Overview</div>
+      <div class="header-title">Great Works Studio</div>
+      <div class="header-tagline">Concept. Fund. Build. License.</div>
+    </div>
+    <div class="header-right">
+      <div class="header-badge">Seed Round</div>
+      <div class="header-ask">$10M</div>
+      <div class="header-ask-label">Raising · Idea Stage</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- LEFT COLUMN -->
+    <div class="body-left">
+
+      <div class="section">
+        <div class="section-label">The Opportunity</div>
+        <h2>The world needs Great Works.<br><em>No one is building them.</em></h2>
+        <p>Philanthropy funds incrementalism. Venture capital funds companies. There is no vehicle for the ambitious, world-shaping project — the kind of thing that requires vision, patience, and a patron who wants to leave something behind, not just a tax receipt. Great Works Studio fills that gap.</p>
+        <div class="pull-quote">
+          <p>"You know greatness when you see it — it has soul. It's the manifestation of one human's unique vision of the world."</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">What We Do</div>
+        <h2>We concept, fund, and execute<br>civilization-scale projects.</h2>
+        <p>The Studio sources and shapes ambitious projects — artistic, scientific, ecological, political, or commercial — and maintains a public "menu." We cultivate a network of ultra-high-net-worth patrons and match them with projects that speak to their vision. We then recruit world-class, project-specific teams and execute. We are, at our core, a <strong>team-building machine</strong> — our talent network and brand are as important as our project pipeline.</p>
+        <div class="project-row">
+          <div class="project-chip">
+            <span class="project-chip-cat" style="color:var(--purple)">▲ Arcane Inquiries</span>
+            <span class="project-chip-name">Funding the Illegible</span>
+          </div>
+          <div class="project-chip">
+            <span class="project-chip-cat" style="color:var(--green)">◆ Garden Empire</span>
+            <span class="project-chip-name">Eradicate Ticks from the US</span>
+          </div>
+          <div class="project-chip">
+            <span class="project-chip-cat" style="color:var(--red)">● Monumental Works</span>
+            <span class="project-chip-name">Enlarge Manhattan Island</span>
+          </div>
+          <div class="project-chip">
+            <span class="project-chip-cat" style="color:var(--blue)">◈ Commissioned Ventures</span>
+            <span class="project-chip-name">Mission-Targeted Startups</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">The Business Model</div>
+        <h2>Two compounding revenue streams.</h2>
+        <p><strong>Stream 1 — Patron Admin Fees:</strong> Every project carries a 10% administration fee to the Studio. A $10M project generates $1M in net revenue. Immediate, recurring, high-margin.</p>
+        <p style="margin-top:0.05in"><strong>Stream 2 — The Great Works License:</strong> Every project signs a license (modeled on the SAFE note) granting GWS 10% equity participation in any future economic value. 30% of our portfolio is commercially-oriented. As stakes accumulate, we build a permanent capital vehicle — with GWS charging ~1% management fee on AUM.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">The Patron Approach</div>
+        <h2>Not philanthropy — self-actualization.</h2>
+        <p>We cultivate patron relationships personally and over time, approaching UHNWI and family offices from the standpoint of legacy, not charity. Phase I scoping engagements run $100–500K; implementation budgets are project-specific ($1M–$10M+). Our founding team brings 5+ years of direct family office experience across 4–5 offices.</p>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="body-right">
+
+      <!-- Model summary cards -->
+      <div class="right-card">
+        <div class="right-card-header">
+          <div class="right-card-icon" style="background:var(--red)">⚡</div>
+          <div class="right-card-title">Patron Admin Fees</div>
+        </div>
+        <div class="right-card-body">
+          <p>10% of every project budget, paid to the Studio. Scales directly with patron activity and project volume.</p>
+          <div class="right-card-stat">$10M project → $1M Studio revenue</div>
+        </div>
+      </div>
+
+      <div class="right-card">
+        <div class="right-card-header">
+          <div class="right-card-icon" style="background:var(--blue)">◈</div>
+          <div class="right-card-title">Great Works License</div>
+        </div>
+        <div class="right-card-body">
+          <p>10% equity participation in all future economic value from every project we touch. Dormant until value is created — simple, fair, perpetual.</p>
+          <div class="right-card-stat">30% commercial target → portfolio of stakes</div>
+        </div>
+      </div>
+
+      <div class="right-card">
+        <div class="right-card-header">
+          <div class="right-card-icon" style="background:var(--gold); color:var(--ink)">∞</div>
+          <div class="right-card-title">Permanent Capital</div>
+        </div>
+        <div class="right-card-body">
+          <p>Accumulated stakes and royalties enable a permanent capital vehicle with investor participation and a management fee on AUM.</p>
+          <div class="right-card-stat">~1% mgmt fee on growing AUM</div>
+        </div>
+      </div>
+
+      <!-- Use of funds -->
+      <div class="right-card">
+        <div class="right-card-header">
+          <div class="right-card-icon" style="background:var(--green)">$</div>
+          <div class="right-card-title">Use of $10M</div>
+        </div>
+        <div class="right-card-body">
+          <p style="margin-bottom:0.06in"><strong style="color:var(--gold);font-family:'IBM Plex Mono',monospace;font-size:6.5pt">40%</strong> Team &amp; Operations</p>
+          <p style="margin-bottom:0.06in"><strong style="color:var(--gold);font-family:'IBM Plex Mono',monospace;font-size:6.5pt">40%</strong> Seed 2–3 Great Works (Phase I)</p>
+          <p><strong style="color:var(--gold);font-family:'IBM Plex Mono',monospace;font-size:6.5pt">20%</strong> Brand &amp; Patron Platform</p>
+          <div class="right-card-stat">18-month target: 3–5 patron deals closed</div>
+        </div>
+      </div>
+
+      <!-- Team -->
+      <div>
+        <div class="section-label" style="margin-bottom:0.08in">The Founding Team</div>
+        <div class="team-grid">
+          <div class="team-row">
+            <div class="team-dot" style="background:var(--blue)"></div>
+            <div>
+              <div class="team-role">Founder & CEO</div>
+              <div class="team-name">Nathaniel Koloc</div>
+              <div class="team-bio">15 years team-building &amp; exec search. Serial entrepreneur. $76M M&amp;A. 5+ years in family office world (full-time + consulting across 4–5 FOs).</div>
+            </div>
+          </div>
+          <div class="team-row">
+            <div class="team-dot" style="background:var(--purple)"></div>
+            <div>
+              <div class="team-role">Cofounder · R&D & Network</div>
+              <div class="team-name">Aishwarya</div>
+              <div class="team-bio">Deep network spanning investors, family offices, and the esoteric edges of intellectual life. R&D instincts + irreplaceable access.</div>
+            </div>
+          </div>
+          <div class="team-row">
+            <div class="team-dot" style="background:var(--red)"></div>
+            <div>
+              <div class="team-role">Cofounder · Engineering & Capital</div>
+              <div class="team-name">Alessandro</div>
+              <div class="team-bio">Agentic AI infrastructure — Studio is AI-native from Day 1. Family office relationships for two-way capital access.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-logo">Great Works Studio</div>
+    <div class="footer-contact">studio@greatworks.studio</div>
+    <div class="footer-date">CONFIDENTIAL · 2026 · IDEA STAGE</div>
+  </div>
+</div>
+</body>
+</html>
