@@ -277,6 +277,7 @@
       color: var(--ink-soft);
       max-width: 640px;
       margin: 0 auto;
+      text-align: justify;
     }
 
     /* ─────────────────────────────────────────────────────────────────
@@ -1795,6 +1796,185 @@
     .modal-content::-webkit-scrollbar-track { background: transparent; }
     .modal-content::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 0; }
     .modal-content::-webkit-scrollbar-thumb:hover { background: var(--ink); }
+
+
+    /* ─────────────────────────────────────────────────────────────────
+       Page toggle nav
+       ───────────────────────────────────────────────────────────────── */
+
+    .page-toggle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: calc(32px * var(--d-pad)) 0;
+      padding: calc(20px * var(--d-pad)) 0;
+      border-top: 1px solid var(--rule);
+    }
+    .toggle-btn {
+      background: transparent;
+      border: 1.5px solid var(--ink);
+      color: var(--ink);
+      padding: 11px 32px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 160ms, color 160ms;
+      margin-right: -1.5px;
+    }
+    .toggle-btn:last-child { margin-right: 0; }
+    .toggle-btn.is-active {
+      background: var(--ink);
+      color: var(--paper);
+      position: relative;
+      z-index: 1;
+    }
+    .toggle-btn:not(.is-active):hover { background: var(--paper-2); }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Plan page
+       ───────────────────────────────────────────────────────────────── */
+
+    .plan-page { padding-top: calc(40px * var(--d-pad)); }
+
+    .plan-prose {
+      max-width: 680px;
+      margin: calc(32px * var(--d-pad)) auto calc(24px * var(--d-pad));
+    }
+    .plan-prose p {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(15px, 1.2vw, 18px);
+      line-height: 1.65;
+      color: var(--ink-soft);
+      margin-bottom: 12px;
+    }
+
+    .plan-statement {
+      max-width: 680px;
+      margin: calc(8px * var(--d-pad)) auto calc(10px * var(--d-pad));
+      font-family: "Playfair Display", serif;
+      font-weight: 900;
+      font-size: clamp(22px, 2.5vw, 32px);
+      line-height: 1.15;
+      color: var(--ink);
+      text-align: center;
+    }
+
+    .plan-sub {
+      max-width: 680px;
+      margin: 0 auto calc(36px * var(--d-pad));
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: clamp(14px, 1.05vw, 16.5px);
+      line-height: 1.65;
+      color: var(--ink-soft);
+      text-align: center;
+    }
+    .plan-sub strong { font-style: normal; color: var(--ink); }
+
+    .plan-divider {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: calc(44px * var(--d-pad)) auto;
+      max-width: 600px;
+    }
+
+    .plan-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+      gap: calc(36px * var(--d-gap)) calc(28px * var(--d-gap));
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .plan-item {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .plan-item-num {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 42px;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      color: var(--accent);
+      opacity: 0.55;
+    }
+
+    .plan-item-image {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      background: var(--paper-2);
+      border: 1.5px solid var(--ink);
+      overflow: hidden;
+    }
+    .plan-item-image image-slot {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .plan-item-text {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(13px, 1vw, 14.5px);
+      line-height: 1.6;
+      color: var(--ink-soft);
+    }
+
+    .plan-credentials {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+      gap: calc(20px * var(--d-gap));
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .credential-slot {
+      padding: 24px 28px;
+      border: 1.5px solid var(--ink);
+      border-left: 4px solid var(--accent);
+      background: var(--paper-2);
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: clamp(14px, 1.05vw, 16px);
+      line-height: 1.55;
+      color: var(--ink-soft);
+      min-height: 90px;
+    }
+    .credential-slot.is-empty {
+      border-color: var(--rule);
+      border-left: 4px solid var(--rule);
+      background: transparent;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Catalogue intro
+       ───────────────────────────────────────────────────────────────── */
+
+    .catalogue-intro {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: calc(28px * var(--d-pad)) 24px 0;
+      text-align: center;
+    }
+    .catalogue-intro-text {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: clamp(16px, 1.4vw, 21px);
+      line-height: 1.45;
+      color: var(--ink-soft);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Halo — goldenrod border on selected cards
+       ───────────────────────────────────────────────────────────────── */
+
+    .tile-frame.has-halo {
+      outline: 4px solid #DAA520;
+      outline-offset: 4px;
+    }
 
   </style>
 </head>
@@ -3523,6 +3703,50 @@ window.GW_clearPartners = function () {
   localStorage.removeItem(LS_PARTNERS_KEY);
 };
 
+const LS_PLAN_KEY = "gw_plan_content_v1";
+
+window.GW_DEFAULT_PLAN = {
+  items: [
+    {
+      text: "Surface important projects that have the quality of greatness: ambitious in scope, beneficial to society, carrying a unique soulfulness in their nature.",
+      imagePrompt: "An aerial view of a grand architectural project under construction, dramatic lighting, sense of scale and historical ambition, 1940s Fortune Magazine style"
+    },
+    {
+      text: "Cultivate & develop Patrons, with an emphasis on expressing their values and views; not transactional incrementalist philanthropy.",
+      imagePrompt: "A contemplative wealthy patron in a private gallery or study, surrounded by art and history, warm golden light, painterly editorial style"
+    },
+    {
+      text: "Build formidable teams who turn that patron funding into accomplishments. The key is teams that are not just technically strong but also politically savvy, high charisma.",
+      imagePrompt: "A diverse high-energy team in a strategy session, modern setting, energy and determination, 1940s Fortune cover illustration style"
+    },
+    {
+      text: "Pantheon takes 10% of the patronage to produce the projects, and will take equity positions in the commercial ventures.",
+      imagePrompt: "Abstract symbolic image of capital and investment flowing into great works, gold and ink aesthetic, monumental scale"
+    }
+  ],
+  credentials: [
+    "Won a high stakes State Senate seat and delivered a legislative landslide in New York.",
+    "Turned a stagnant venture into $76M exit.",
+    ""
+  ]
+};
+
+window.GW_loadPlanContent = function () {
+  try {
+    const raw = localStorage.getItem(LS_PLAN_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch (e) {
+    return null;
+  }
+};
+window.GW_savePlanContent = function (content) {
+  localStorage.setItem(LS_PLAN_KEY, JSON.stringify(content));
+};
+window.GW_clearPlanContent = function () {
+  localStorage.removeItem(LS_PLAN_KEY);
+};
+
 function nextProjectNo(projects) {
   let max = 0;
   for (const p of projects) {
@@ -3561,7 +3785,7 @@ function blankProject(projects) {
 function blankPartner(partners) {
   return {
     id: "p" + Date.now(),
-    name: "New Partner",
+    name: "New Champion",
   };
 }
 
@@ -3569,14 +3793,20 @@ function blankPartner(partners) {
 // Admin Panel
 // ─────────────────────────────────────────────────────────────────────────
 
-function AdminPanel({ projects, onApply, partners, onApplyPartners, onClose }) {
+function AdminPanel({ projects, onApply, partners, onApplyPartners, planContent, onApplyPlanContent, onClose }) {
   const [projectDraft, setProjectDraft] = React.useState(() =>
     JSON.parse(JSON.stringify(projects))
   );
   const [partnerDraft, setPartnerDraft] = React.useState(() =>
     JSON.parse(JSON.stringify(partners))
   );
-  // Selection: { type: 'project'|'partner', id }
+  const [planDraft, setPlanDraft] = React.useState(() =>
+    JSON.parse(JSON.stringify((planContent && planContent.items) || window.GW_DEFAULT_PLAN.items))
+  );
+  const [credentialDraft, setCredentialDraft] = React.useState(() =>
+    [...((planContent && planContent.credentials) || window.GW_DEFAULT_PLAN.credentials)]
+  );
+  // Selection: { type: 'project'|'partner'|'plan-item'|'credential', id }
   const [selection, setSelection] = React.useState(() =>
     projectDraft[0]
       ? { type: "project", id: projectDraft[0].id }
@@ -3692,25 +3922,33 @@ function AdminPanel({ projects, onApply, partners, onApplyPartners, onClose }) {
   function applyChanges() {
     window.GW_saveProjects(projectDraft);
     window.GW_savePartners(partnerDraft);
+    const nextPlan = { items: planDraft, credentials: credentialDraft };
+    window.GW_savePlanContent && window.GW_savePlanContent(nextPlan);
     onApply(projectDraft);
     onApplyPartners(partnerDraft);
+    onApplyPlanContent && onApplyPlanContent(nextPlan);
     setToast("Saved");
     setTimeout(() => setToast(null), 1600);
   }
 
   function resetToDefaults() {
-    if (!confirm("Reset every project and partner back to the studio defaults? Your edits will be lost.")) return;
+    if (!confirm("Reset every project, champion, and plan content back to the studio defaults? Your edits will be lost.")) return;
     window.GW_clearProjects();
     window.GW_clearPartners();
+    window.GW_clearPlanContent && window.GW_clearPlanContent();
     const defaultsP = JSON.parse(JSON.stringify(window.GW_DEFAULT_PROJECTS));
     const defaultsT = JSON.parse(JSON.stringify(window.GW_DEFAULT_PARTNERS));
+    const defaultsPlan = JSON.parse(JSON.stringify(window.GW_DEFAULT_PLAN));
     setProjectDraft(defaultsP);
     setPartnerDraft(defaultsT);
+    setPlanDraft(JSON.parse(JSON.stringify(defaultsPlan.items)));
+    setCredentialDraft([...defaultsPlan.credentials]);
     setSelection(
       defaultsP[0] ? { type: "project", id: defaultsP[0].id } : { type: "none" }
     );
     onApply(defaultsP);
     onApplyPartners(defaultsT);
+    onApplyPlanContent && onApplyPlanContent(defaultsPlan);
     setToast("Reset to defaults");
     setTimeout(() => setToast(null), 1600);
   }
@@ -3798,13 +4036,46 @@ function AdminPanel({ projects, onApply, partners, onApplyPartners, onClose }) {
 
       <div className="admin-body">
         <aside className="admin-list">
-          {/* Partners section */}
+          {/* Plan Content section */}
+          <div className="admin-list-section">
+            <div className="admin-list-head">
+              <span className="admin-list-head-label">The Plan</span>
+            </div>
+            {[1,2,3,4].map(n => (
+              <button
+                key={`plan-item-${n}`}
+                className={clsx(
+                  "admin-row admin-row-sm",
+                  selection.type === "plan-item" && selection.id === n && "is-active"
+                )}
+                onClick={() => setSelection({ type: "plan-item", id: n })}
+              >
+                <span className="admin-row-title">Item {n}</span>
+              </button>
+            ))}
+            {[1,2,3].map(n => (
+              <button
+                key={`credential-${n}`}
+                className={clsx(
+                  "admin-row admin-row-sm",
+                  selection.type === "credential" && selection.id === n && "is-active"
+                )}
+                onClick={() => setSelection({ type: "credential", id: n })}
+              >
+                <span className="admin-row-title">
+                  {credentialDraft[n-1] ? `Credential ${n}` : `Credential ${n} · empty`}
+                </span>
+              </button>
+            ))}
+          </div>
+
+          {/* Champions section */}
           <div className="admin-list-section">
             <div className="admin-list-head">
               <span className="admin-list-head-label">
-                Partners · {partnerDraft.length}
+                Champions · {partnerDraft.length}
               </span>
-              <button className="admin-add" onClick={addPartner}>＋ Add partner</button>
+              <button className="admin-add" onClick={addPartner}>＋ Add champion</button>
             </div>
             {partnerDraft.map((p) => (
               <button
@@ -3861,7 +4132,7 @@ function AdminPanel({ projects, onApply, partners, onApplyPartners, onClose }) {
         <main className="admin-editor">
           {selection.type === "none" && (
             <div className="admin-editor-empty">
-              Add a new work or partner, or select one from the list.
+              Add a new work or champion, or select one from the list.
             </div>
           )}
 
@@ -3959,6 +4230,21 @@ function AdminPanel({ projects, onApply, partners, onApplyPartners, onClose }) {
               </div>
 
               <div className="admin-section">
+                <div className="admin-section-label">▼ Display</div>
+                <label className="admin-field" style={{ flexDirection: "row", alignItems: "center", gap: 10, cursor: "pointer" }}>
+                  <input
+                    type="checkbox"
+                    checked={!!selectedProject.halo}
+                    onChange={(e) => updateProjectField("halo", e.target.checked)}
+                    style={{ width: 16, height: 16, cursor: "pointer", flexShrink: 0 }}
+                  />
+                  <span className="admin-field-label" style={{ textTransform: "none", letterSpacing: 0, fontSize: 12, margin: 0 }}>
+                    Include halo (goldenrod border on card)
+                  </span>
+                </label>
+              </div>
+
+              <div className="admin-section">
                 <div className="admin-section-label">▼ Funding &amp; Horizon</div>
                 <div className="admin-field-row">
                   <label className="admin-field">
@@ -4052,11 +4338,11 @@ function AdminPanel({ projects, onApply, partners, onApplyPartners, onClose }) {
           {selectedPartner && (
             <>
               <div className="admin-editor-head">
-                <h3>{selectedPartner.name || "Untitled partner"}</h3>
+                <h3>{selectedPartner.name || "Untitled champion"}</h3>
                 <button
                   className="admin-btn is-danger"
                   onClick={() => {
-                    if (confirm("Remove this partner from the strip?")) {
+                    if (confirm("Remove this champion from the strip?")) {
                       deletePartner(selectedPartner.id);
                     }
                   }}
@@ -4066,7 +4352,7 @@ function AdminPanel({ projects, onApply, partners, onApplyPartners, onClose }) {
               </div>
 
               <div className="admin-section">
-                <div className="admin-section-label">▼ Partner</div>
+                <div className="admin-section-label">▼ Champion</div>
                 <label className="admin-field">
                   <span className="admin-field-label">Display name</span>
                   <input
@@ -4075,7 +4361,7 @@ function AdminPanel({ projects, onApply, partners, onApplyPartners, onClose }) {
                     onChange={(e) => updatePartnerField("name", e.target.value)}
                   />
                   <span className="admin-field-hint">
-                    Shown as a caption under the logo. Drop the partner's actual logo onto the matching image slot in the live page.
+                    Shown as a caption under the logo. Drop the champion's actual logo onto the matching image slot in the live page.
                   </span>
                 </label>
 
@@ -4121,6 +4407,84 @@ function AdminPanel({ projects, onApply, partners, onApplyPartners, onClose }) {
                 <button className="admin-btn" onClick={onClose}>
                   Close editor
                 </button>
+              </div>
+            </>
+          )}
+
+          {/* PLAN ITEM EDITOR */}
+          {selection.type === "plan-item" && (
+            <>
+              <div className="admin-editor-head">
+                <h3>Plan Item {selection.id}</h3>
+              </div>
+              <div className="admin-section">
+                <div className="admin-section-label">▼ Item {selection.id}</div>
+                <label className="admin-field">
+                  <span className="admin-field-label">Item text</span>
+                  <textarea
+                    rows="5"
+                    value={planDraft[selection.id - 1] ? planDraft[selection.id - 1].text : ""}
+                    onChange={(e) => {
+                      const next = planDraft.map((item, i) =>
+                        i === selection.id - 1 ? { ...item, text: e.target.value } : item
+                      );
+                      setPlanDraft(next);
+                    }}
+                  />
+                </label>
+                <label className="admin-field">
+                  <span className="admin-field-label">Image direction prompt</span>
+                  <textarea
+                    rows="3"
+                    value={planDraft[selection.id - 1] ? planDraft[selection.id - 1].imagePrompt : ""}
+                    onChange={(e) => {
+                      const next = planDraft.map((item, i) =>
+                        i === selection.id - 1 ? { ...item, imagePrompt: e.target.value } : item
+                      );
+                      setPlanDraft(next);
+                    }}
+                  />
+                  <span className="admin-field-hint">
+                    Drop your image directly onto the item slot on The Plan page.
+                  </span>
+                </label>
+              </div>
+              <div className="admin-actions">
+                <button className="admin-btn is-primary" onClick={applyChanges}>✓ Save changes</button>
+                <button className="admin-btn" onClick={onClose}>Close editor</button>
+              </div>
+            </>
+          )}
+
+          {/* CREDENTIAL EDITOR */}
+          {selection.type === "credential" && (
+            <>
+              <div className="admin-editor-head">
+                <h3>Credential {selection.id}</h3>
+              </div>
+              <div className="admin-section">
+                <div className="admin-section-label">▼ Credential</div>
+                <label className="admin-field">
+                  <span className="admin-field-label">Credential text</span>
+                  <textarea
+                    rows="4"
+                    placeholder="A notable accomplishment or credential..."
+                    value={credentialDraft[selection.id - 1] || ""}
+                    onChange={(e) => {
+                      const next = credentialDraft.map((c, i) =>
+                        i === selection.id - 1 ? e.target.value : c
+                      );
+                      setCredentialDraft(next);
+                    }}
+                  />
+                  <span className="admin-field-hint">
+                    Leave empty to show a placeholder slot.
+                  </span>
+                </label>
+              </div>
+              <div className="admin-actions">
+                <button className="admin-btn is-primary" onClick={applyChanges}>✓ Save changes</button>
+                <button className="admin-btn" onClick={onClose}>Close editor</button>
               </div>
             </>
           )}
@@ -4192,24 +4556,18 @@ function accentFor(project) {
 // Masthead
 // ─────────────────────────────────────────────────────────────────────────
 
-function Masthead({ onAdmin }) {
+function Masthead() {
   return (
     <header className="masthead">
       <div className="masthead-rule"></div>
 
       <div className="masthead-meta">
-        <span className="meta-block">VOL. I · NO. 02</span>
-        <span className="meta-block">PUBLISHED BY GREAT WORKS STUDIO</span>
-        <span className="meta-block">NEW YORK · EST. 2026</span>
-        <button className="admin-link" onClick={onAdmin} title="Open the Pantheon editor">
-          ✎ Edit the Pantheon
-        </button>
+        <span className="meta-block">CONFIDENTIAL – EST NEW YORK 2026</span>
       </div>
 
       <div className="masthead-title">
         <div className="masthead-ornament">❦</div>
         <h1 className="masthead-name">
-          <span className="masthead-name-the">the</span>
           Pantheon<span className="masthead-period">.</span>
         </h1>
         <div className="masthead-ornament">❦</div>
@@ -4220,19 +4578,6 @@ function Masthead({ onAdmin }) {
       </div>
 
       <div className="masthead-rule"></div>
-
-      <div className="manifesto">
-        <p className="manifesto-lead">
-          The world is in need of more <em>great works</em>.
-        </p>
-        <p className="manifesto-body">
-          Many of the great works that our world needs are not shaped like startups,
-          nor will they happen unless someone determines to apply force of will at a
-          very precise point in the system. We pair far-sighted patrons with
-          well-scoped, audacious, accomplishable projects and assemble the teams who
-          can get them done.
-        </p>
-      </div>
     </header>
   );
 }
@@ -4246,10 +4591,10 @@ function PartnersStrip({ partners }) {
   // Duplicate the list so the marquee loops seamlessly.
   const loop = [...partners, ...partners];
   return (
-    <section className="partners-section" aria-label="Studio partners">
+    <section className="partners-section" aria-label="Studio champions">
       <div className="partners-eyebrow">
         <span className="partners-rule"></span>
-        <span className="partners-label">Partners</span>
+        <span className="partners-label">Champions</span>
         <span className="partners-rule"></span>
       </div>
       <div className="partners-marquee">
@@ -4352,7 +4697,7 @@ function Tile({ project, onOpen }) {
       data-screen-label={`Tile · ${project.title}`}
       style={{ "--cat-color": primary.color }}
     >
-      <div className="tile-frame">
+      <div className={clsx("tile-frame", project.halo && "has-halo")}>
         <CategoryStrip project={project} />
 
         <div className="tile-image-wrap">
@@ -4803,11 +5148,137 @@ function TweakBar() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
+// Page Toggle
+// ─────────────────────────────────────────────────────────────────────────
+
+function PageToggle({ activePage, setActivePage }) {
+  return (
+    <div className="page-toggle">
+      <button
+        className={clsx("toggle-btn", activePage === "plan" && "is-active")}
+        onClick={() => setActivePage("plan")}
+      >
+        The Plan
+      </button>
+      <button
+        className={clsx("toggle-btn", activePage === "catalogue" && "is-active")}
+        onClick={() => setActivePage("catalogue")}
+      >
+        The Catalogue
+      </button>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Plan Page
+// ─────────────────────────────────────────────────────────────────────────
+
+function PlanPage({ planContent }) {
+  const items = (planContent && planContent.items) || window.GW_DEFAULT_PLAN.items;
+  const credentials = (planContent && planContent.credentials) || window.GW_DEFAULT_PLAN.credentials;
+
+  return (
+    <div className="plan-page">
+      <div className="manifesto">
+        <p className="manifesto-lead">The world needs more great works.</p>
+        <p className="manifesto-body">
+          Most great works are not shaped like startups, nor will they happen without concentrated application of force of will at very precise points in the system. We pair far-sighted patrons with well-scoped, audacious, concrete, accomplishable projects and build the teams who can get them done.
+        </p>
+      </div>
+
+      <div className="plan-prose">
+        <p>Wealth accumulation is accelerating.</p>
+        <p>But we've lost the culture of wealth that pursues great works for societal benefit.</p>
+        <p>You can only have so many yachts and houses.</p>
+        <p>Today's wealthy could use some help channeling a piece of their wealth into meaningful projects.</p>
+      </div>
+
+      <div className="plan-statement">Pantheon is a modern patronage platform.</div>
+
+      <p className="plan-sub">
+        We are in the business of producing <strong>great works</strong>, using a focus on supporting self-actualization via patronage.
+      </p>
+
+      <hr className="plan-divider" />
+
+      <div className="plan-items">
+        {items.map((item, i) => (
+          <div className="plan-item" key={i}>
+            <div className="plan-item-num">{i + 1}</div>
+            <div className="plan-item-image">
+              <image-slot
+                id={`gw-plan-item-${i + 1}`}
+                placeholder={item.imagePrompt || `Plan illustration ${i + 1}`}
+                style={{ width: "100%", height: "100%", display: "block" }}
+              ></image-slot>
+            </div>
+            <div className="plan-item-text">{item.text}</div>
+          </div>
+        ))}
+      </div>
+
+      <hr className="plan-divider" />
+
+      <div className="plan-credentials">
+        {credentials.map((cred, i) => (
+          <div className={clsx("credential-slot", !cred && "is-empty")} key={i}>
+            {cred || <span style={{ opacity: 0.3, fontStyle: "normal" }}>Credential {i + 1}</span>}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Catalogue Page
+// ─────────────────────────────────────────────────────────────────────────
+
+function CataloguePage({ projects, activeCat, setActiveCat, catCounts, visible, setOpenId }) {
+  return (
+    <div className="catalogue-page">
+      <div className="catalogue-intro">
+        <p className="catalogue-intro-text">
+          Join the great men &amp; women of history in making something that the world will remember.
+        </p>
+      </div>
+
+      <FilterBar active={activeCat} setActive={setActiveCat} counts={catCounts} />
+
+      <div className="grid-eyebrow">
+        <span className="grid-eyebrow-rule"></span>
+        <span className="grid-eyebrow-text"></span>
+        <span className="grid-eyebrow-rule"></span>
+      </div>
+
+      <div className="tile-grid">
+        {visible.map((p) => (
+          <Tile key={p.id} project={p} onOpen={() => setOpenId(p.id)} />
+        ))}
+      </div>
+
+      {visible.length === 0 && (
+        <div style={{
+          textAlign: "center",
+          padding: "60px 20px",
+          fontFamily: "Playfair Display, serif",
+          fontStyle: "italic",
+          fontSize: 18,
+          color: "var(--muted)",
+        }}>
+          No works in this category — try a different filter.
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────
 // App
 // ─────────────────────────────────────────────────────────────────────────
 
 function App() {
-  // Initial projects + partners: localStorage override → source defaults.
   const [projects, setProjects] = useState(() => {
     const stored = window.GW_loadProjects && window.GW_loadProjects();
     return stored || window.GW_PROJECTS;
@@ -4816,10 +5287,15 @@ function App() {
     const stored = window.GW_loadPartners && window.GW_loadPartners();
     return stored || window.GW_PARTNERS;
   });
+  const [planContent, setPlanContent] = useState(() => {
+    const stored = window.GW_loadPlanContent && window.GW_loadPlanContent();
+    return stored || JSON.parse(JSON.stringify(window.GW_DEFAULT_PLAN));
+  });
 
   const [activeCat, setActiveCat] = useState("all");
   const [openId, setOpenId] = useState(null);
   const [adminOpen, setAdminOpen] = useState(false);
+  const [activePage, setActivePage] = useState("plan");
 
   const catCounts = useMemo(() => {
     const c = { all: projects.length };
@@ -4840,7 +5316,6 @@ function App() {
 
   const openProject = openId ? projects.find((p) => p.id === openId) : null;
 
-  // initial palette applied once on mount
   useEffect(() => {
     if (!document.documentElement.dataset.palette) {
       document.documentElement.dataset.palette = TWEAK_DEFAULTS.palette;
@@ -4850,74 +5325,41 @@ function App() {
     }
   }, []);
 
-  // Keep window-globals in sync so other scripts see edits.
   useEffect(() => { window.GW_PROJECTS = projects; }, [projects]);
   useEffect(() => { window.GW_PARTNERS = partners; }, [partners]);
 
   return (
     <div className="app">
       <div className="page-frame">
-        <Masthead onAdmin={() => setAdminOpen(true)} />
+        <Masthead />
 
         <PartnersStrip partners={partners} />
 
-        <FilterBar
-          active={activeCat}
-          setActive={setActiveCat}
-          counts={catCounts}
-        />
+        <PageToggle activePage={activePage} setActivePage={setActivePage} />
 
-        <div className="grid-eyebrow">
-          <span className="grid-eyebrow-rule"></span>
-          <span className="grid-eyebrow-text">
-            {visible.length} {visible.length === 1 ? "Work" : "Works"} · Each a real commission · Each scoped for one patron or a small consortium
-          </span>
-          <span className="grid-eyebrow-rule"></span>
-        </div>
+        {activePage === "plan" && (
+          <PlanPage planContent={planContent} />
+        )}
 
-        <div className="tile-grid">
-          {visible.map((p) => (
-            <Tile key={p.id} project={p} onOpen={() => setOpenId(p.id)} />
-          ))}
-        </div>
-
-        {visible.length === 0 && (
-          <div style={{
-            textAlign: "center",
-            padding: "60px 20px",
-            fontFamily: "Playfair Display, serif",
-            fontStyle: "italic",
-            fontSize: 18,
-            color: "var(--muted)",
-          }}>
-            No works in this category — try a different filter.
-          </div>
+        {activePage === "catalogue" && (
+          <CataloguePage
+            projects={projects}
+            activeCat={activeCat}
+            setActiveCat={setActiveCat}
+            catCounts={catCounts}
+            visible={visible}
+            setOpenId={setOpenId}
+          />
         )}
 
         <footer className="page-foot">
           <div className="foot-rule"></div>
           <div className="foot-row">
-            <div className="foot-logo">Great Works Studio</div>
-            <div className="foot-contact">studio@greatworks.studio</div>
-            <div className="foot-meta">CONFIDENTIAL · 2026 · IDEA STAGE</div>
-            <button
-              className="admin-link"
-              title="Export images so they can be baked into the site"
-              onClick={() => {
-                try {
-                  const data = localStorage.getItem('__gw_image_slots') || '{}';
-                  const blob = new Blob([data], { type: 'application/json' });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a');
-                  a.href = url;
-                  a.download = 'gw-images.json';
-                  document.body.appendChild(a);
-                  a.click();
-                  document.body.removeChild(a);
-                  URL.revokeObjectURL(url);
-                } catch(e) { alert('No images saved yet — drop images onto the cards first.'); }
-              }}
-            >↓ Export images</button>
+            <span className="foot-meta">COPYRIGHT 2026</span>
+            <span className="foot-contact">patrons@pantheon.global</span>
+            <button className="admin-link" onClick={() => setAdminOpen(true)}>
+              Edit the Pantheon
+            </button>
           </div>
         </footer>
       </div>
@@ -4930,6 +5372,8 @@ function App() {
           onApply={(next) => setProjects(next)}
           partners={partners}
           onApplyPartners={(next) => setPartners(next)}
+          planContent={planContent}
+          onApplyPlanContent={(next) => setPlanContent(next)}
           onClose={() => setAdminOpen(false)}
         />
       )}
