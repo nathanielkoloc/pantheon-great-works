@@ -1933,7 +1933,7 @@
 
     .plan-item-image {
       position: relative;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 3 / 2;
       background: var(--paper-2);
       border: 1.5px solid var(--ink);
       overflow: hidden;
@@ -4052,6 +4052,17 @@ function AdminPanel({ projects, onApply, partners, onApplyPartners, planContent,
           <div className="admin-topbar-title">The Pantheon — Edit Mode</div>
         </div>
         <div className="admin-topbar-spacer"></div>
+        <button className="admin-btn" onClick={() => {
+          try {
+            const data = localStorage.getItem('__gw_image_slots') || '{}';
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = 'gw-images.json';
+            document.body.appendChild(a); a.click();
+            document.body.removeChild(a); URL.revokeObjectURL(url);
+          } catch(e) { alert('No images saved yet.'); }
+        }}>↓ Export images</button>
         <button className="admin-btn" onClick={exportJSON}>Export JSON</button>
         <label className="admin-btn" style={{ cursor: "pointer" }}>
           Import JSON
