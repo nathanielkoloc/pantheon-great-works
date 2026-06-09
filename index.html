@@ -1806,7 +1806,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: calc(32px * var(--d-pad)) 0;
+      margin: calc(32px * var(--d-pad)) 0 0;
       padding: calc(20px * var(--d-pad)) 0;
       border-top: 1px solid var(--rule);
     }
@@ -1814,9 +1814,9 @@
       background: transparent;
       border: 1.5px solid var(--ink);
       color: var(--ink);
-      padding: 11px 32px;
+      padding: 20px 60px;
       font-family: "IBM Plex Mono", monospace;
-      font-size: 11px;
+      font-size: 16px;
       letter-spacing: 0.22em;
       text-transform: uppercase;
       cursor: pointer;
@@ -1833,10 +1833,36 @@
     .toggle-btn:not(.is-active):hover { background: var(--paper-2); }
 
     /* ─────────────────────────────────────────────────────────────────
+       Shared page intro (below toggle, on both pages)
+       ───────────────────────────────────────────────────────────────── */
+
+    .page-intro {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto calc(32px * var(--d-pad));
+      padding-top: calc(28px * var(--d-pad));
+    }
+    .page-intro-lead {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(28px, 3.6vw, 46px);
+      letter-spacing: 0.02em;
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .page-intro-sub {
+      font-family: "Zilla Slab", serif;
+      font-size: clamp(16px, 1.3vw, 20px);
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--ink-soft);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
        Plan page
        ───────────────────────────────────────────────────────────────── */
 
-    .plan-page { padding-top: calc(40px * var(--d-pad)); }
+    .plan-page { padding-top: calc(8px * var(--d-pad)); }
 
     .plan-prose {
       max-width: 580px;
@@ -5189,12 +5215,6 @@ function PlanPage({ planContent }) {
 
   return (
     <div className="plan-page">
-      <div className="manifesto">
-        <p className="manifesto-lead">The world needs more great works.</p>
-      </div>
-
-      <div className="plan-statement">Pantheon helps patrons fund amazing projects that otherwise would not exist.</div>
-
       <hr className="plan-divider" />
 
       <div className="plan-items">
@@ -5235,12 +5255,6 @@ function PlanPage({ planContent }) {
 function CataloguePage({ projects, activeCat, setActiveCat, catCounts, visible, setOpenId }) {
   return (
     <div className="catalogue-page">
-      <div className="catalogue-intro">
-        <p className="catalogue-intro-text">
-          Join the great men &amp; women of history in making something that the world will remember.
-        </p>
-      </div>
-
       <FilterBar active={activeCat} setActive={setActiveCat} counts={catCounts} />
 
       <div className="grid-eyebrow">
@@ -5333,6 +5347,11 @@ function App() {
         <PartnersStrip partners={partners} />
 
         <PageToggle activePage={activePage} setActivePage={setActivePage} />
+
+        <div className="page-intro">
+          <p className="page-intro-lead">The world needs more great works.</p>
+          <p className="page-intro-sub">Pantheon helps patrons fund amazing projects that otherwise would not exist.</p>
+        </div>
 
         {activePage === "plan" && (
           <PlanPage planContent={planContent} />
