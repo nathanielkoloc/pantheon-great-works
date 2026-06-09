@@ -1844,10 +1844,10 @@
       text-align: center;
     }
     .plan-prose p {
-      font-family: "Playfair Display", serif;
-      font-style: italic;
-      font-size: clamp(15px, 1.15vw, 17px);
-      line-height: 1.7;
+      font-family: "Bodoni Moda", "Playfair Display", serif;
+      font-style: normal;
+      font-size: clamp(17px, 1.4vw, 21px);
+      line-height: 1.6;
       color: var(--ink-soft);
       margin-bottom: 8px;
     }
@@ -1920,9 +1920,19 @@
 
     .plan-item-text {
       font-family: "Playfair Display", serif;
-      font-size: clamp(13px, 1vw, 14.5px);
+      font-size: clamp(15px, 1.15vw, 17px);
       line-height: 1.6;
       color: var(--ink-soft);
+    }
+
+    .credentials-header {
+      max-width: 1000px;
+      margin: 0 auto calc(20px * var(--d-pad));
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
 
     .plan-credentials {
@@ -3729,7 +3739,7 @@ window.GW_DEFAULT_PLAN = {
   credentials: [
     "Won a high stakes State Senate seat and delivered a legislative landslide in New York.",
     "Turned a stagnant venture into $76M exit.",
-    ""
+    "Delivered primary election reform wins in states across the country."
   ]
 };
 
@@ -5157,16 +5167,16 @@ function PageToggle({ activePage, setActivePage }) {
   return (
     <div className="page-toggle">
       <button
-        className={clsx("toggle-btn", activePage === "plan" && "is-active")}
-        onClick={() => setActivePage("plan")}
-      >
-        The Plan
-      </button>
-      <button
         className={clsx("toggle-btn", activePage === "catalogue" && "is-active")}
         onClick={() => setActivePage("catalogue")}
       >
         The Catalogue
+      </button>
+      <button
+        className={clsx("toggle-btn", activePage === "plan" && "is-active")}
+        onClick={() => setActivePage("plan")}
+      >
+        The Plan
       </button>
     </div>
   );
@@ -5218,6 +5228,8 @@ function PlanPage({ planContent }) {
       </div>
 
       <hr className="plan-divider" />
+
+      <div className="credentials-header">Pantheon's Founders have built teams that:</div>
 
       <div className="plan-credentials">
         {credentials.map((cred, i) => (
