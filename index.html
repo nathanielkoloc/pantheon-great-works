@@ -1868,8 +1868,8 @@
       margin: 0 auto calc(36px * var(--d-pad));
       font-family: "Zilla Slab", serif;
       font-style: normal;
-      font-size: clamp(14px, 1.05vw, 16.5px);
-      line-height: 1.65;
+      font-size: clamp(19px, 1.6vw, 24px);
+      line-height: 1.55;
       color: var(--ink-soft);
       text-align: center;
     }
@@ -4050,7 +4050,7 @@ function AdminPanel({ projects, onApply, partners, onApplyPartners, planContent,
           {/* Plan Content section */}
           <div className="admin-list-section">
             <div className="admin-list-head">
-              <span className="admin-list-head-label">The Plan</span>
+              <span className="admin-list-head-label">The Model</span>
             </div>
             {[1,2,3,4].map(n => (
               <button
@@ -4456,7 +4456,7 @@ function AdminPanel({ projects, onApply, partners, onApplyPartners, planContent,
                     }}
                   />
                   <span className="admin-field-hint">
-                    Drop your image directly onto the item slot on The Plan page.
+                    Drop your image directly onto the item slot on The Model page.
                   </span>
                 </label>
               </div>
@@ -5193,13 +5193,6 @@ function PlanPage({ planContent }) {
     <div className="plan-page">
       <div className="manifesto">
         <p className="manifesto-lead">The world needs more great works.</p>
-      </div>
-
-      <div className="plan-prose">
-        <p>Wealth accumulation is accelerating.</p>
-        <p>But we've lost the culture of wealth that pursues great works for societal benefit.</p>
-        <p>You can only have so many yachts and houses.</p>
-        <p>Today's wealthy could use some help channeling a piece of their wealth into meaningful projects.</p>
       </div>
 
       <div className="plan-statement">Pantheon is a modern patronage platform.</div>
