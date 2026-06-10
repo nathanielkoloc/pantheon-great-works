@@ -20,9 +20,9 @@
 
       --ink:      #1A1410;
       --ink-soft: #4A3C30;
-      --paper:    #F5EFE0;
-      --paper-2:  #EDE5D0;
-      --paper-3:  #E2D7BD;
+      --paper:    #EEEAE3;
+      --paper-2:  #E4DFD7;
+      --paper-3:  #D8D2C8;
       --muted:    #7A6A58;
       --rule:     rgba(26,20,16,0.18);
       --rule-soft:rgba(26,20,16,0.10);
@@ -1614,6 +1614,7 @@
     .partners-section {
       margin: 0 0 calc(28px * var(--d-pad));
       padding: 0;
+      display: none;
     }
     .partners-eyebrow {
       display: flex;
@@ -4619,9 +4620,6 @@ function Masthead() {
         </h1>
       </div>
 
-      <div className="masthead-sub">
-        A catalog of commission-able great work(s).
-      </div>
 
       <div className="masthead-rule"></div>
     </header>
@@ -4881,10 +4879,7 @@ function Modal({ project, onClose }) {
                 className={clsx("modal-tab", tab === "brief" && "is-active")}
                 onClick={() => setTab("brief")}
               >The Brief</button>
-              <button
-                className={clsx("modal-tab", tab === "direction" && "is-active")}
-                onClick={() => setTab("direction")}
-              >Image Direction</button>
+
               <button
                 className={clsx("modal-tab", tab === "inquire" && "is-active")}
                 onClick={() => setTab("inquire")}
@@ -4909,37 +4904,6 @@ function Modal({ project, onClose }) {
                       the implementation plan that unlocks the full programme.
                     </div>
                   </div>
-                </div>
-              </div>
-            )}
-
-            {tab === "direction" && (
-              <div className="modal-tab-panel">
-                <p className="direction-intro">
-                  Each Great Work is illustrated in a single cover style — 1940s Fortune
-                  Magazine meets golden-age comics. Below: the scene to commission for
-                  this work, plus the shared style preamble. Paste both into Midjourney v7,
-                  Imagen 4, or DALL·E. Drop the result onto the image slot.
-                </p>
-
-                <div className="prompt-block">
-                  <div className="prompt-header">
-                    <span className="prompt-label">SCENE · {project.no}</span>
-                    <button className="prompt-copy" onClick={copyPrompt}>
-                      {copied ? "✓ Copied" : "Copy prompt"}
-                    </button>
-                  </div>
-                  <div className="prompt-body">
-                    <p className="prompt-scene">{project.imagePrompt}</p>
-                    <div className="prompt-rule"></div>
-                    <p className="prompt-preamble">{window.GW_STYLE_PREAMBLE}</p>
-                  </div>
-                </div>
-
-                <div className="direction-tip">
-                  <strong>Tip.</strong> Generate four candidates per project at 4:5 portrait,
-                  then upscale the strongest. Keep palettes consistent across the menu by
-                  reusing the style preamble verbatim.
                 </div>
               </div>
             )}
